@@ -37,7 +37,7 @@ let body = source.replace(/https:\/\/static\.tildacdn\.pro\/[^"]+\/([^"/]+)"/g, 
 const shim = `
 <style>
   :root { color-scheme: light; }
-  html, body { margin: 0; background: #fcfaf6; }
+  html, body { margin: 0; background: #ffffff; }
   .tes-preview-badge {
     position: fixed; right: 12px; top: 72px; z-index: 200;
     font: 500 12px/1.3 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .04em;

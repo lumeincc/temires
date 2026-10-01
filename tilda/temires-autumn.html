@@ -76,7 +76,7 @@
 .tes-root {
   --tes-ink: #1e1813;
   --tes-ink-2: #2b231c;
-  --tes-paper: #fcfaf6;
+  --tes-paper: #ffffff;
   --tes-mist: #f3eee6;
   --tes-gold: #f5a800;
   --tes-gold-deep: #9b5a00;
@@ -125,13 +125,13 @@
 /* ═══════════════ NAV ═══════════════ */
 .tes-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(252, 250, 246, 0.88);
+  background: rgba(255, 255, 255, 0.9);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   backdrop-filter: blur(14px) saturate(1.2);
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s, background 0.3s;
 }
-.tes-nav.is-scrolled { border-bottom-color: var(--tes-line); background: rgba(252, 250, 246, 0.96); }
+.tes-nav.is-scrolled { border-bottom-color: var(--tes-line); background: rgba(255, 255, 255, 0.96); }
 .tes-nav__inner {
   max-width: 1280px; margin: 0 auto; padding: 0 40px; height: 68px;
   display: flex; align-items: center; gap: 32px;
@@ -334,7 +334,7 @@
 .tes-prod-card__link:hover::after { transform: translateX(6px); }
 
 /* ═══════════════ ПЕЧЬ (светлая секция под белое фото) ═══════════════ */
-.tes-kiln { position: relative; background: #ffffff; color: var(--tes-ink); overflow: hidden; isolation: isolate; border-top: 1px solid var(--tes-line); }
+.tes-kiln { position: relative; background: var(--tes-paper); color: var(--tes-ink); overflow: hidden; isolation: isolate; border-top: 1px solid var(--tes-line); }
 .tes-incin { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 88px; align-items: start; }
 .tes-incin__img-wrap { position: relative; margin: 14px 0 0 14px; }
 .tes-incin__img-wrap::before {
@@ -401,7 +401,7 @@
 .tes-incin__swatch { width: 34px; height: 8px; flex-shrink: 0; background: linear-gradient(90deg, var(--a), var(--b)); }
 
 /* ═══════════════ ПОЧЕМУ МЫ ═══════════════ */
-.tes-why-outer { background: var(--tes-mist); }
+.tes-why-outer { background: var(--tes-paper); border-top: 1px solid var(--tes-line); }
 .tes-why { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 88px; }
 .tes-why__intro { position: sticky; top: 108px; align-self: start; }
 .tes-why__intro .tes-sec-desc { margin-top: 22px; }
@@ -577,7 +577,7 @@
     display: flex; gap: 8px; align-items: center;
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 99;
     padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
-    background: rgba(252, 250, 246, 0.94);
+    background: rgba(255, 255, 255, 0.94);
     -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
     border-top: 1px solid var(--tes-line);
     transform: translateY(110%); transition: transform 0.35s var(--tes-ease);
@@ -831,7 +831,7 @@
         </div>
         <div class="tes-why__card">
           <svg class="tes-why__svg-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true">
-            <path d="M2 9h20v16H2zM22 14h7l5 6v5H22"/><circle cx="8.5" cy="26.5" r="3" fill="var(--tes-mist)"/><circle cx="27.5" cy="26.5" r="3" fill="var(--tes-mist)"/>
+            <path d="M2 9h20v16H2zM22 14h7l5 6v5H22"/><circle cx="8.5" cy="26.5" r="3" fill="var(--tes-paper)"/><circle cx="27.5" cy="26.5" r="3" fill="var(--tes-paper)"/>
           </svg>
           <h3 class="tes-why__card-title">Доставка и монтаж</h3>
           <p class="tes-why__card-text">Работаем по всему Казахстану. Доставляем, монтируем на объекте, запускаем и обучаем персонал работе с оборудованием.</p>
