@@ -505,18 +505,22 @@
 
 /* ═══════════════ ПОДВАЛ ═══════════════ */
 .tes-footer { background: var(--tes-ink); color: var(--tes-dim); font-size: 14px; }
-.tes-footer__inner { max-width: 1280px; margin: 0 auto; padding: 72px 40px 32px; }
-.tes-footer__top { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 4fr); gap: 40px; padding-bottom: 48px; }
+.tes-footer__inner { max-width: 1280px; margin: 0 auto; padding: 88px 40px 32px; }
+.tes-footer__top { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 64px; padding-bottom: 48px; }
 .tes-footer__brand { font-family: var(--tes-display); font-size: 30px; font-weight: 600; line-height: 1.05; text-transform: uppercase; color: var(--tes-paper); }
 .tes-footer__tagline { margin-top: 12px; max-width: 22rem; line-height: 1.6; }
 .tes-footer__col-title {
-  font-family: var(--tes-mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--tes-gold); margin-bottom: 14px;
+  font-family: var(--tes-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--tes-gold); margin-bottom: 20px;
 }
-.tes-footer__links { list-style: none; display: grid; gap: 10px; }
-.tes-footer__links a { display: inline-flex; align-items: center; gap: 10px; color: var(--tes-paper); transition: color 0.2s; }
+.tes-footer__links { list-style: none; display: grid; gap: 14px; }
+.tes-footer__links a {
+  display: inline-flex; align-items: center; gap: 14px; color: var(--tes-paper); transition: color 0.2s;
+  font-family: var(--tes-display); font-size: clamp(1.15rem, 2vw, 1.6rem); font-weight: 500; line-height: 1.2;
+  overflow-wrap: anywhere;
+}
 .tes-footer__links a:hover { color: var(--tes-gold); }
-.tes-footer__links svg { width: 18px; height: 18px; color: var(--tes-gold); }
+.tes-footer__links svg { width: 24px; height: 24px; flex-shrink: 0; color: var(--tes-gold); }
 .tes-footer__bottom {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
   padding-top: 24px; border-top: 1px solid var(--tes-line-dark); font-size: 13px;
@@ -556,8 +560,6 @@
   .tes-form-wrap { grid-template-columns: minmax(0, 1fr); }
   .tes-clients__item { grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .tes-footer__inner { padding: 56px 24px 28px; }
-  .tes-footer__top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .tes-footer__top > :first-child { grid-column: 1 / -1; }
 }
 @media (max-width: 640px) {
   .tes-hero { min-height: 0; }
@@ -948,21 +950,17 @@
     <div class="tes-footer__inner">
       <div class="tes-footer__top">
         <div>
-          <div class="tes-footer__brand">Темирэнергострой</div>
-          <p class="tes-footer__tagline">Металлоконструкции, печи-инсинераторы и блочно-модульные здания. Собственное производство в Казахстане.</p>
-        </div>
-        <div>
           <p class="tes-footer__col-title">Контакты</p>
           <ul class="tes-footer__links">
-            <li><a href="tel:+77000229689">+7 700 022 96 89</a></li>
-            <li><a href="mailto:info@plm.kz">info@plm.kz</a></li>
+            <li><a href="tel:+77000229689"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .5h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 15.92v1z"/></svg>+7 700 022 96 89</a></li>
+            <li><a href="mailto:info@plm.kz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@plm.kz</a></li>
           </ul>
         </div>
         <div>
           <p class="tes-footer__col-title">Мы в соцсетях</p>
           <ul class="tes-footer__links">
-            <li><a href="https://t.me/temires_bot" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M21.2 4.3 2.9 11.4c-.8.3-.8 1.4 0 1.7l4.4 1.6 1.7 5.2c.2.7 1.1.9 1.6.4l2.5-2.3 4.7 3.4c.6.4 1.4.1 1.6-.6L22.6 5.8c.2-1-.6-1.8-1.4-1.5Z"/><path d="m7.3 14.7 10.4-6.8-7.6 7.7-.3 3.3"/></svg>Telegram · @temires_bot</a></li>
-            <li><a href="https://www.instagram.com/temirenergostroy/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>Instagram · @temirenergostroy</a></li>
+            <li><a href="https://t.me/temires_bot" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M21.2 4.3 2.9 11.4c-.8.3-.8 1.4 0 1.7l4.4 1.6 1.7 5.2c.2.7 1.1.9 1.6.4l2.5-2.3 4.7 3.4c.6.4 1.4.1 1.6-.6L22.6 5.8c.2-1-.6-1.8-1.4-1.5Z"/><path d="m7.3 14.7 10.4-6.8-7.6 7.7-.3 3.3"/></svg>@temires_bot</a></li>
+            <li><a href="https://www.instagram.com/temirenergostroy/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>@temirenergostroy</a></li>
           </ul>
         </div>
       </div>
