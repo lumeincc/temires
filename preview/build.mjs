@@ -39,7 +39,7 @@ const shim = `
   :root { color-scheme: light; }
   html, body { margin: 0; background: #fcfaf6; }
   .tes-preview-badge {
-    position: fixed; left: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 200;
+    position: fixed; right: 12px; top: 72px; z-index: 200;
     font: 500 12px/1.3 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .04em;
     background: #1e1813; color: #fcfaf6; padding: 9px 12px; border-radius: 2px;
     box-shadow: 0 8px 24px rgba(30, 24, 19, .25); max-width: calc(100vw - 32px);

@@ -190,7 +190,10 @@
   border: 1px solid var(--tes-line); border-radius: 2px;
 }
 .tes-nav__mobile-social svg { width: 18px; height: 18px; }
-.tes-nav__mobile .tes-btn { margin-top: 14px; justify-content: center; }
+.tes-nav__mobile > a.tes-btn {
+  margin-top: 14px; justify-content: center; padding: 17px 16px; border-bottom: 0;
+  font-family: var(--tes-text); font-size: 14px; font-weight: 600; line-height: 1; color: var(--tes-ink);
+}
 
 /* ═══════════════ HERO ═══════════════ */
 .tes-hero {
@@ -235,6 +238,7 @@
   font-size: 18px; line-height: 1.6; color: var(--tes-smoke);
 }
 .tes-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+.tes-hero__actions:not(:has(a)) { display: none; }
 .tes-hero__stats { display: flex; flex-wrap: wrap; gap: 28px 0; margin-top: 64px; }
 .tes-hero__stat { padding-right: 40px; }
 .tes-hero__stat + .tes-hero__stat { padding-left: 40px; border-left: 1px solid var(--tes-line); }
@@ -329,25 +333,16 @@
 .tes-prod-card__link:hover { color: var(--tes-rust); }
 .tes-prod-card__link:hover::after { transform: translateX(6px); }
 
-/* ═══════════════ ПЕЧЬ (тёмная секция) ═══════════════ */
-.tes-kiln { position: relative; background: var(--tes-ink); color: var(--tes-paper); overflow: hidden; isolation: isolate; }
-.tes-kiln::before {
-  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(55% 45% at 12% 100%, rgba(226, 129, 15, 0.24), transparent 70%),
-    radial-gradient(40% 40% at 92% 0%, rgba(109, 30, 16, 0.55), transparent 70%);
-}
-.tes-kiln .tes-eyebrow { color: var(--tes-gold); }
-.tes-kiln .tes-sec-title { color: var(--tes-paper); }
+/* ═══════════════ ПЕЧЬ (светлая секция под белое фото) ═══════════════ */
+.tes-kiln { position: relative; background: #ffffff; color: var(--tes-ink); overflow: hidden; isolation: isolate; border-top: 1px solid var(--tes-line); }
 .tes-incin { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 88px; align-items: start; }
 .tes-incin__img-wrap { position: relative; margin: 14px 0 0 14px; }
 .tes-incin__img-wrap::before {
   content: ''; position: absolute; inset: -14px 14px 14px -14px;
-  border: 1px solid rgba(245, 168, 0, 0.45); pointer-events: none;
+  border: 1px solid var(--tes-gold); pointer-events: none;
 }
 .tes-incin__img {
   position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
-  filter: saturate(0.9) sepia(0.1);
 }
 .tes-incin__badge {
   position: absolute; right: -20px; bottom: -24px; z-index: 2;
@@ -358,9 +353,9 @@
 .tes-incin__badge strong {
   display: block; font-family: var(--tes-display); font-size: 54px; font-weight: 600; line-height: 1; margin-bottom: 6px;
 }
-.tes-incin__text { font-size: 17px; line-height: 1.7; color: var(--tes-dim); }
+.tes-incin__text { font-size: 17px; line-height: 1.7; color: var(--tes-smoke); }
 .tes-incin__text + .tes-incin__text { margin-top: 16px; }
-.tes-incin__text b { color: var(--tes-paper); font-weight: 500; }
+.tes-incin__text b { color: var(--tes-ink); font-weight: 500; }
 
 /* Шкала каления */
 .tes-heat { margin-top: 44px; }
@@ -372,10 +367,11 @@
 }
 .tes-heat__mark::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
-  border: 1px solid var(--tes-paper); border-bottom: 0;
+  border: 1px solid var(--tes-ink); border-bottom: 0;
 }
-.tes-heat__mark b { display: block; color: var(--tes-paper); font-weight: 500; }
-.tes-heat__mark span { font-family: var(--tes-mono); color: var(--tes-gold); }
+.tes-heat__mark--end { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.tes-heat__mark b { display: block; color: var(--tes-ink); font-weight: 500; }
+.tes-heat__mark span { font-family: var(--tes-mono); color: var(--tes-rust); }
 .tes-heat__bar {
   height: 14px; margin-top: 4px;
   background: linear-gradient(90deg,
@@ -383,23 +379,23 @@
     #b52d11 35.6%, #cc3c13 39.4%, #e05518 45.6%, #f08a1d 59.4%,
     #f6b028 75%, #fbd767 87.5%, #fff4cf 96.9%, #fffaf0 100%);
 }
-.tes-heat__ticks { position: relative; height: 22px; margin-top: 8px; font-family: var(--tes-mono); font-size: 11px; color: var(--tes-dim); }
+.tes-heat__ticks { position: relative; height: 22px; margin-top: 8px; font-family: var(--tes-mono); font-size: 11px; color: var(--tes-smoke); }
 .tes-heat__ticks span { position: absolute; left: var(--at); transform: translateX(-50%); white-space: nowrap; }
 .tes-heat__ticks span:first-child { transform: none; }
 .tes-heat__ticks span:last-child { transform: translateX(-100%); }
-.tes-heat figcaption { font-size: 12px; color: var(--tes-dim); margin-top: 4px; }
+.tes-heat figcaption { font-size: 12px; color: var(--tes-smoke); margin-top: 4px; }
 
-.tes-incin__specs { list-style: none; margin-top: 36px; border-top: 1px solid var(--tes-line-dark); }
+.tes-incin__specs { list-style: none; margin-top: 36px; border-top: 1px solid var(--tes-line); }
 .tes-incin__spec {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center;
-  padding: 15px 0; border-bottom: 1px solid var(--tes-line-dark);
+  padding: 15px 0; border-bottom: 1px solid var(--tes-line);
   transition: background 0.25s, padding 0.35s var(--tes-ease);
 }
-.tes-incin__spec:hover { background: rgba(245, 168, 0, 0.06); padding-left: 12px; padding-right: 12px; }
-.tes-incin__spec-label { font-size: 14px; color: var(--tes-dim); }
+.tes-incin__spec:hover { background: var(--tes-mist); padding-left: 12px; padding-right: 12px; }
+.tes-incin__spec-label { font-size: 14px; color: var(--tes-smoke); }
 .tes-incin__spec-val {
   display: inline-flex; align-items: center; gap: 12px; justify-content: flex-end; text-align: right;
-  font-family: var(--tes-mono); font-size: 13px; font-weight: 500; color: var(--tes-paper);
+  font-family: var(--tes-mono); font-size: 13px; font-weight: 500; color: var(--tes-ink);
   font-variant-numeric: tabular-nums;
 }
 .tes-incin__swatch { width: 34px; height: 8px; flex-shrink: 0; background: linear-gradient(90deg, var(--a), var(--b)); }
@@ -526,6 +522,9 @@
   padding-top: 24px; border-top: 1px solid var(--tes-line-dark); font-size: 13px;
 }
 
+/* ═══════════════ НИЖНЯЯ ПАНЕЛЬ НА ТЕЛЕФОНЕ ═══════════════ */
+.tes-mbar { display: none; }
+
 /* ═══════════════ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ═══════════════ */
 .tes-reveal { transition: opacity 0.8s var(--tes-ease), transform 0.8s var(--tes-ease); }
 .tes-reveal.is-hidden { opacity: 0; transform: translateY(28px); }
@@ -538,7 +537,7 @@
 /* ═══════════════ АДАПТИВ ═══════════════ */
 @media (max-width: 1180px) {
   .tes-nav__links { display: none; }
-  .tes-nav__right { margin-left: auto; }
+  .tes-nav__right, .tes-nav__links + .tes-nav__right { margin-left: auto; }
 }
 @media (max-width: 960px) {
   .tes-nav__inner { padding: 0 24px; gap: 16px; }
@@ -562,6 +561,36 @@
 }
 @media (max-width: 640px) {
   .tes-hero { min-height: 0; }
+  .tes-hero__title { font-size: 7.6vw; letter-spacing: -0.02em; line-height: 1.08; }
+  .tes-hero__stats { margin-top: 40px; }
+  .tes-incin { gap: 56px; }
+  .tes-incin__img-wrap { margin: 10px 0 0 10px; }
+  .tes-incin__img-wrap::before { inset: -10px 10px 10px -10px; }
+  .tes-incin__badge { right: 0; bottom: -18px; padding: 12px 14px 14px; max-width: 170px; font-size: 12.5px; }
+  .tes-incin__badge strong { font-size: 38px; margin-bottom: 4px; }
+  .tes-heat__mark { font-size: 11px; }
+  .tes-why__card { padding: 26px 0 30px; }
+  .tes-clients__item { padding: 20px 0; }
+  .tes-clients__item:hover { padding-left: 0; padding-right: 0; background: none; }
+  .tes-contacts__value { font-size: 16px; }
+  .tes-footer { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+  .tes-mbar {
+    display: flex; gap: 8px; align-items: center;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 99;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(252, 250, 246, 0.94);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-top: 1px solid var(--tes-line);
+    transform: translateY(110%); transition: transform 0.35s var(--tes-ease);
+  }
+  .tes-mbar.is-shown { transform: none; }
+  .tes-mbar .tes-btn { flex: 1; justify-content: center; padding: 15px 12px; font-size: 13px; }
+  .tes-mbar__icon {
+    width: 48px; height: 48px; flex-shrink: 0; border-radius: 2px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--tes-line); color: var(--tes-ink); background: var(--tes-paper);
+  }
+  .tes-mbar__icon svg { width: 20px; height: 20px; }
   .tes-hero__panel { display: none; }
   .tes-hero__stripe {
     display: block; position: absolute; left: 0; right: 0; bottom: 0; height: 12px; z-index: 1;
@@ -580,8 +609,12 @@
   .tes-marquee__item { font-size: 17px; }
 }
 @media (max-width: 480px) {
-  .tes-nav__inner { padding: 0 20px; }
-  .tes-nav__right .tes-social { width: 36px; height: 36px; }
+  .tes-nav__inner { padding: 0 20px; height: 60px; }
+  .tes-nav__right .tes-social { display: none; }
+  .tes-nav__logo-name { font-size: 17px; }
+  .tes-nav__mobile { max-height: calc(100vh - 60px); padding: 8px 20px 24px; }
+  .tes-nav__mobile > a { font-size: 21px; }
+  .tes-hero__inner { padding: 96px 20px 64px; }
   .tes-section { padding: 72px 20px; }
   .tes-incin__spec { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .tes-incin__spec-val { justify-content: flex-start; text-align: left; }
@@ -753,7 +786,7 @@
           <figure class="tes-heat" aria-label="Рабочие температуры печи на шкале цветов каления стали: камера сгорания 700–900 °C, дожигание 1100–1200 °C">
             <div class="tes-heat__marks" aria-hidden="true">
               <span class="tes-heat__mark" style="--from: 25%; --to: 50%;"><b>Камера сгорания</b><span>700–900 °C</span></span>
-              <span class="tes-heat__mark" style="--from: 75%; --to: 87.5%;"><b>Дожигание</b><span>1100–1200 °C</span></span>
+              <span class="tes-heat__mark tes-heat__mark--end" style="--from: 75%; --to: 87.5%;"><b>Дожигание</b><span>1100–1200 °C</span></span>
             </div>
             <div class="tes-heat__bar" aria-hidden="true"></div>
             <div class="tes-heat__ticks" aria-hidden="true">
@@ -942,6 +975,17 @@
       </div>
     </div>
   </footer>
+
+  <!-- ══ НИЖНЯЯ ПАНЕЛЬ (только телефон) ══ -->
+  <div class="tes-mbar" id="tes-mbar">
+    <a href="#form" class="tes-btn tes-btn--gold">Оставить заявку</a>
+    <a class="tes-mbar__icon" href="tel:+77000229689" aria-label="Позвонить +7 700 022 96 89">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .5h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 15.92v1z"/></svg>
+    </a>
+    <a class="tes-mbar__icon" href="https://t.me/temires_bot" target="_blank" rel="noopener" aria-label="Telegram-бот @temires_bot">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M21.2 4.3 2.9 11.4c-.8.3-.8 1.4 0 1.7l4.4 1.6 1.7 5.2c.2.7 1.1.9 1.6.4l2.5-2.3 4.7 3.4c.6.4 1.4.1 1.6-.6L22.6 5.8c.2-1-.6-1.8-1.4-1.5Z"/><path d="m7.3 14.7 10.4-6.8-7.6 7.7-.3 3.3"/></svg>
+    </a>
+  </div>
 </section>
 
 <script>
@@ -987,6 +1031,19 @@
     var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 10); };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+  }
+
+  /* ── Нижняя панель на телефоне: появляется после первого экрана, прячется у формы ── */
+  var mbar = document.getElementById('tes-mbar');
+  var formSection = document.getElementById('form');
+  if (mbar) {
+    var formVisible = false;
+    var updateBar = function () { mbar.classList.toggle('is-shown', window.scrollY > window.innerHeight * 0.6 && !formVisible); };
+    if (formSection && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) { formVisible = entries[0].isIntersecting; updateBar(); }, { threshold: 0.15 }).observe(formSection);
+    }
+    window.addEventListener('scroll', updateBar, { passive: true });
+    updateBar();
   }
 
   /* ── Появление при скролле ── */
