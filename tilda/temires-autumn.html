@@ -1,0 +1,1147 @@
+<!-- ТЕМИРЭНЕРГОСТРОЙ · осенняя версия · вставлять в блок T123 «HTML-код» целиком -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Fira+Sans+Extra+Condensed:wght@600;700;800&display=swap">
+<style>
+/* ─── RESET ─── */
+.tes-root, .tes-root * { box-sizing: border-box; }
+.tes-root input, .tes-root textarea, .tes-root select, .tes-root button { font: inherit; }
+.tes-root a { text-decoration: none; color: inherit; }
+.tes-root img { display: block; max-width: 100%; }
+/* :where() — чтобы сброс не перебивал отступы компонентов ниже */
+.tes-root :where(h1, h2, h3, p, ul, ol, dl, dd, figure) { margin: 0; padding: 0; }
+
+/* ─── ТОКЕНЫ ───
+   Осень: палитра взята из цветов каления стали — золото, оранжевый, ржавчина, вишня.
+   Сетка 1280. Герой: текст слева, золотая панель со срезом справа. Одна тёмная «печная» секция. */
+.tes-root {
+  --tes-ink: #1e1813;
+  --tes-ink-2: #2b231c;
+  --tes-paper: #fcfaf6;
+  --tes-mist: #f3eee6;
+  --tes-gold: #f5a800;
+  --tes-gold-deep: #9b5a00;
+  --tes-amber: #e2810f;
+  --tes-rust: #a8461b;
+  --tes-cherry: #6d1e10;
+  --tes-smoke: #6c6158;
+  --tes-line: #e4dccf;
+  --tes-line-dark: rgba(252, 250, 246, 0.14);
+  --tes-dim: rgba(252, 250, 246, 0.66);
+
+  --tes-display: 'Fira Sans Extra Condensed', 'Arial Narrow', var(--t-headline-font, Arial), sans-serif;
+  --tes-text: 'Golos Text', var(--t-text-font, Arial), sans-serif;
+  --tes-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+
+  --tes-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  font-family: var(--tes-text);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--tes-ink);
+  background: var(--tes-paper);
+  overflow-x: hidden;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+.tes-root ::selection { background: var(--tes-gold); color: var(--tes-ink); }
+.tes-root a:focus-visible,
+.tes-root button:focus-visible { outline: 2px solid var(--tes-gold); outline-offset: 3px; }
+
+/* ═══════════════ КНОПКИ ═══════════════ */
+.tes-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--tes-text); font-size: 14px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; line-height: 1;
+  padding: 18px 28px; border-radius: 2px; border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s var(--tes-ease);
+}
+.tes-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+.tes-root .tes-btn--gold { background: var(--tes-gold); color: var(--tes-ink); }
+.tes-root .tes-btn--gold:hover { background: var(--tes-ink); color: var(--tes-gold); transform: translateY(-2px); }
+.tes-root .tes-btn--line { border-color: rgba(30, 24, 19, 0.28); color: var(--tes-ink); }
+.tes-root .tes-btn--line:hover { border-color: var(--tes-ink); background: var(--tes-ink); color: var(--tes-paper); transform: translateY(-2px); }
+
+/* ═══════════════ NAV ═══════════════ */
+.tes-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(252, 250, 246, 0.88);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s, background 0.3s;
+}
+.tes-nav.is-scrolled { border-bottom-color: var(--tes-line); background: rgba(252, 250, 246, 0.96); }
+.tes-nav__inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 40px; height: 68px;
+  display: flex; align-items: center; gap: 32px;
+}
+.tes-nav__logo { display: flex; flex-direction: column; line-height: 1; flex-shrink: 0; }
+.tes-nav__logo-name {
+  font-family: var(--tes-display); font-size: 24px; font-weight: 800;
+  letter-spacing: 0.02em; text-transform: uppercase; color: var(--tes-ink);
+}
+.tes-nav__logo-sub {
+  font-family: var(--tes-mono); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--tes-smoke); margin-top: 4px;
+}
+.tes-nav__links { display: flex; gap: 28px; margin-left: auto; }
+.tes-nav__links a {
+  font-size: 14px; font-weight: 500; color: var(--tes-ink);
+  background: linear-gradient(var(--tes-rust), var(--tes-rust)) left bottom / 0 1px no-repeat;
+  padding: 4px 0; transition: background-size 0.35s var(--tes-ease), color 0.2s;
+}
+.tes-nav__links a:hover { color: var(--tes-rust); background-size: 100% 1px; }
+.tes-nav__right { display: flex; align-items: center; gap: 10px; }
+.tes-nav__links + .tes-nav__right { margin-left: 8px; }
+.tes-social {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--tes-line); color: var(--tes-ink);
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+.tes-social svg { width: 18px; height: 18px; }
+.tes-social:hover { background: var(--tes-gold); border-color: var(--tes-gold); }
+.tes-nav__cta { margin-left: 6px; padding: 13px 20px; font-size: 13px; }
+.tes-nav__burger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 8px; margin-right: -8px;
+}
+.tes-nav__burger span { display: block; width: 24px; height: 2px; background: var(--tes-ink); transition: transform 0.25s, opacity 0.25s; }
+.tes-nav__burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.tes-nav__burger.is-open span:nth-child(2) { opacity: 0; }
+.tes-nav__burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.tes-nav__mobile {
+  display: none; flex-direction: column;
+  background: var(--tes-paper); border-top: 1px solid var(--tes-line);
+  padding: 12px 24px 28px; max-height: calc(100vh - 68px); overflow-y: auto;
+}
+.tes-nav__mobile.is-open { display: flex; }
+.tes-nav__mobile > a {
+  font-family: var(--tes-display); font-size: 30px; font-weight: 800; line-height: 1.1;
+  text-transform: uppercase; color: var(--tes-ink);
+  padding: 12px 0; border-bottom: 1px solid var(--tes-line);
+}
+.tes-nav__mobile > a:hover { color: var(--tes-rust); }
+.tes-nav__mobile-social { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+.tes-nav__mobile-social a {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 500; padding: 10px 14px;
+  border: 1px solid var(--tes-line); border-radius: 2px;
+}
+.tes-nav__mobile-social svg { width: 18px; height: 18px; }
+.tes-nav__mobile .tes-btn { margin-top: 14px; justify-content: center; }
+
+/* ═══════════════ HERO ═══════════════ */
+.tes-hero {
+  position: relative; min-height: 100vh; min-height: 100svh;
+  display: flex; align-items: center; overflow: hidden;
+  background: var(--tes-paper); isolation: isolate;
+}
+.tes-hero__panel { position: absolute; top: 0; right: 0; bottom: 0; width: 38%; z-index: 1; }
+.tes-hero__band {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  clip-path: polygon(150px 0, 100% 0, 100% 100%, 0 100%);
+}
+.tes-hero__band--1 { left: 0; background: var(--tes-cherry); }
+.tes-hero__band--2 { left: 12px; background: var(--tes-rust); }
+.tes-hero__band--3 { left: 24px; background: var(--tes-amber); }
+.tes-hero__band--4 { left: 36px; background: var(--tes-gold); }
+.tes-hero__band--4::after {
+  content: ''; position: absolute; inset: 0; opacity: 0.22; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .25 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.tes-hero__leaves { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+.tes-hero__stripe { display: none; }
+.tes-hero__inner {
+  position: relative; z-index: 3; width: 100%;
+  max-width: 1280px; margin: 0 auto; padding: 140px 40px 96px;
+}
+.tes-hero__eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font-family: var(--tes-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--tes-gold-deep);
+  margin-bottom: 26px;
+}
+.tes-hero__eyebrow::before { content: ''; width: 32px; height: 1px; background: currentColor; }
+.tes-hero__title {
+  font-family: var(--tes-display); font-weight: 800; text-transform: uppercase;
+  font-size: clamp(2.2rem, 7.6vw, 6.2rem); line-height: 0.92; letter-spacing: 0;
+  color: var(--tes-ink); max-width: 820px;
+}
+.tes-hero__hyphen { color: var(--tes-gold); }
+.tes-hero__lead {
+  max-width: 34rem; margin-top: 30px;
+  font-size: 18px; line-height: 1.6; color: var(--tes-smoke);
+}
+.tes-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+.tes-hero__stats { display: flex; flex-wrap: wrap; gap: 28px 0; margin-top: 64px; }
+.tes-hero__stat { padding-right: 40px; }
+.tes-hero__stat + .tes-hero__stat { padding-left: 40px; border-left: 1px solid var(--tes-line); }
+.tes-hero__stat-num {
+  font-family: var(--tes-display); font-size: 52px; font-weight: 800;
+  line-height: 1; letter-spacing: 0; color: var(--tes-ink);
+}
+.tes-hero__stat-num span { color: var(--tes-rust); }
+.tes-hero__stat-label {
+  font-family: var(--tes-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--tes-smoke); margin-top: 10px; line-height: 1.5;
+}
+
+/* Шильдик — табличка с паспортными данными печи */
+.tes-plate {
+  position: absolute; z-index: 3; right: max(40px, calc((100% - 1280px) / 2 + 40px)); bottom: 13%;
+  width: 290px; padding: 24px 26px 20px;
+  background: linear-gradient(160deg, #2e261f 0%, var(--tes-ink) 60%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 30px 60px -20px rgba(70, 30, 0, 0.55);
+  transition: transform 0.4s var(--tes-ease);
+}
+.tes-root .tes-plate { color: var(--tes-paper); }
+.tes-plate:hover { transform: translateY(-4px); }
+.tes-plate__rivet {
+  position: absolute; width: 7px; height: 7px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #8a7d70, #3a3029 70%);
+}
+.tes-plate__rivet:nth-child(1) { top: 9px; left: 9px; }
+.tes-plate__rivet:nth-child(2) { top: 9px; right: 9px; }
+.tes-plate__rivet:nth-child(3) { bottom: 9px; left: 9px; }
+.tes-plate__rivet:nth-child(4) { bottom: 9px; right: 9px; }
+.tes-plate__kicker {
+  display: block; font-family: var(--tes-mono); font-size: 10.5px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--tes-dim);
+}
+.tes-plate__name {
+  display: block; font-family: var(--tes-display); font-size: 34px; font-weight: 800;
+  text-transform: uppercase; line-height: 1; margin: 6px 0 16px; color: var(--tes-gold);
+}
+.tes-plate__row {
+  display: flex; align-items: baseline; gap: 8px;
+  font-family: var(--tes-mono); font-size: 12px; padding: 5px 0;
+}
+.tes-plate__row span:first-child { color: var(--tes-dim); }
+.tes-plate__row i { flex: 1; border-bottom: 1px dotted rgba(252, 250, 246, 0.25); transform: translateY(-3px); }
+.tes-plate__foot {
+  display: flex; justify-content: space-between; margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--tes-line-dark);
+  font-family: var(--tes-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tes-dim);
+}
+.tes-plate__foot b { color: var(--tes-gold); font-weight: 500; }
+
+/* ═══════════════ БЕГУЩАЯ СТРОКА ═══════════════ */
+.tes-marquee-wrap { background: var(--tes-ink); overflow: hidden; padding: 20px 0; }
+.tes-marquee { display: flex; white-space: nowrap; width: max-content; animation: tes-marquee-scroll 40s linear infinite; }
+.tes-marquee__track { display: flex; flex-shrink: 0; }
+.tes-marquee__item {
+  display: flex; align-items: center; gap: 36px; padding-right: 36px;
+  font-family: var(--tes-display); font-size: 24px; font-weight: 700; line-height: 1;
+  letter-spacing: 0.03em; text-transform: uppercase; color: var(--tes-paper);
+}
+.tes-marquee__item::after {
+  content: ''; width: 16px; height: 16px; flex-shrink: 0;
+  background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1C4.6 5 3.4 10.4 6 15c1 1.9 2.6 3 4 4 1.4-1 3-2.1 4-4 2.6-4.6 1.4-10-4-14Z' fill='%23f5a800'/%3E%3Cpath d='M10 4.5V19' stroke='%231e1813' stroke-width='.9'/%3E%3C/svg%3E");
+  transform: rotate(28deg);
+}
+.tes-marquee__item:nth-child(3n+2)::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1C4.6 5 3.4 10.4 6 15c1 1.9 2.6 3 4 4 1.4-1 3-2.1 4-4 2.6-4.6 1.4-10-4-14Z' fill='%23e2810f'/%3E%3Cpath d='M10 4.5V19' stroke='%231e1813' stroke-width='.9'/%3E%3C/svg%3E");
+  transform: rotate(-36deg);
+}
+.tes-marquee__item:nth-child(3n)::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1C4.6 5 3.4 10.4 6 15c1 1.9 2.6 3 4 4 1.4-1 3-2.1 4-4 2.6-4.6 1.4-10-4-14Z' fill='%23c8561c'/%3E%3Cpath d='M10 4.5V19' stroke='%231e1813' stroke-width='.9'/%3E%3C/svg%3E");
+  transform: rotate(152deg);
+}
+@keyframes tes-marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ═══════════════ ОБЩЕЕ ДЛЯ СЕКЦИЙ ═══════════════ */
+.tes-section { max-width: 1280px; margin: 0 auto; padding: 120px 40px; }
+.tes-head {
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 32px 64px; align-items: end; margin-bottom: 64px;
+}
+.tes-eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font-family: var(--tes-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--tes-gold-deep);
+  margin-bottom: 20px;
+}
+.tes-eyebrow::before { content: ''; width: 32px; height: 1px; background: currentColor; }
+.tes-sec-title {
+  font-family: var(--tes-display); font-weight: 800;
+  font-size: clamp(2.5rem, 4.8vw, 4.25rem); line-height: 0.96; letter-spacing: 0;
+  color: var(--tes-ink); text-wrap: balance;
+}
+.tes-sec-desc { font-size: 17px; line-height: 1.65; color: var(--tes-smoke); max-width: 34rem; }
+
+/* ═══════════════ ПРОДУКЦИЯ ═══════════════ */
+.tes-products-bg { background: var(--tes-paper); }
+.tes-products__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 32px; }
+.tes-prod-card { display: flex; flex-direction: column; }
+.tes-prod-card__img-wrap { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: var(--tes-mist); }
+.tes-prod-card__img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(0.88) sepia(0.12) contrast(1.03);
+  transition: transform 0.9s var(--tes-ease), filter 0.6s;
+}
+.tes-prod-card:hover .tes-prod-card__img { transform: scale(1.045); filter: none; }
+.tes-prod-card__img-wrap::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+  background: var(--tes-gold); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s var(--tes-ease);
+}
+.tes-prod-card:hover .tes-prod-card__img-wrap::after { transform: scaleX(1); }
+.tes-prod-card__body { display: flex; flex-direction: column; flex: 1; padding-top: 24px; }
+.tes-prod-card__tag {
+  font-family: var(--tes-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--tes-rust); margin-bottom: 12px;
+}
+.tes-prod-card__title {
+  font-family: var(--tes-display); font-size: 34px; font-weight: 800; line-height: 1;
+  color: var(--tes-ink); margin-bottom: 14px; text-wrap: balance;
+}
+.tes-prod-card__text { font-size: 15px; line-height: 1.65; color: var(--tes-smoke); flex: 1; margin-bottom: 24px; }
+.tes-prod-card__link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 18px; border-top: 1px solid var(--tes-line); margin-top: auto;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tes-ink);
+  transition: color 0.2s;
+}
+.tes-prod-card__link::after { content: '→'; font-size: 18px; transition: transform 0.35s var(--tes-ease); }
+.tes-prod-card__link:hover { color: var(--tes-rust); }
+.tes-prod-card__link:hover::after { transform: translateX(6px); }
+
+/* ═══════════════ ПЕЧЬ (тёмная секция) ═══════════════ */
+.tes-kiln { position: relative; background: var(--tes-ink); color: var(--tes-paper); overflow: hidden; isolation: isolate; }
+.tes-kiln::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(55% 45% at 12% 100%, rgba(226, 129, 15, 0.24), transparent 70%),
+    radial-gradient(40% 40% at 92% 0%, rgba(109, 30, 16, 0.55), transparent 70%);
+}
+.tes-kiln .tes-eyebrow { color: var(--tes-gold); }
+.tes-kiln .tes-sec-title { color: var(--tes-paper); }
+.tes-incin { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 88px; align-items: start; }
+.tes-incin__img-wrap { position: relative; margin: 14px 0 0 14px; }
+.tes-incin__img-wrap::before {
+  content: ''; position: absolute; inset: -14px 14px 14px -14px;
+  border: 1px solid rgba(245, 168, 0, 0.45); pointer-events: none;
+}
+.tes-incin__img {
+  position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+  filter: saturate(0.9) sepia(0.1);
+}
+.tes-incin__badge {
+  position: absolute; right: -20px; bottom: -24px; z-index: 2;
+  background: var(--tes-gold); color: var(--tes-ink);
+  padding: 20px 24px 22px; max-width: 220px;
+  font-size: 14px; font-weight: 500; line-height: 1.35;
+}
+.tes-incin__badge strong {
+  display: block; font-family: var(--tes-display); font-size: 64px; font-weight: 800; line-height: 0.9; margin-bottom: 6px;
+}
+.tes-incin__text { font-size: 17px; line-height: 1.7; color: var(--tes-dim); }
+.tes-incin__text + .tes-incin__text { margin-top: 16px; }
+.tes-incin__text b { color: var(--tes-paper); font-weight: 500; }
+
+/* Шкала каления */
+.tes-heat { margin-top: 44px; }
+.tes-heat__marks { position: relative; height: 54px; }
+.tes-heat__mark {
+  position: absolute; bottom: 0; left: var(--from); width: calc(var(--to) - var(--from));
+  padding-bottom: 10px; white-space: nowrap;
+  font-size: 12px; line-height: 1.35;
+}
+.tes-heat__mark::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+  border: 1px solid var(--tes-paper); border-bottom: 0;
+}
+.tes-heat__mark b { display: block; color: var(--tes-paper); font-weight: 500; }
+.tes-heat__mark span { font-family: var(--tes-mono); color: var(--tes-gold); }
+.tes-heat__bar {
+  height: 14px; margin-top: 4px;
+  background: linear-gradient(90deg,
+    #2a0d06 0%, #3d1208 6.9%, #5c1a0b 14.4%, #7d1f0e 23.75%, #9a250f 31.25%,
+    #b52d11 35.6%, #cc3c13 39.4%, #e05518 45.6%, #f08a1d 59.4%,
+    #f6b028 75%, #fbd767 87.5%, #fff4cf 96.9%, #fffaf0 100%);
+}
+.tes-heat__ticks { position: relative; height: 22px; margin-top: 8px; font-family: var(--tes-mono); font-size: 11px; color: var(--tes-dim); }
+.tes-heat__ticks span { position: absolute; left: var(--at); transform: translateX(-50%); white-space: nowrap; }
+.tes-heat__ticks span:first-child { transform: none; }
+.tes-heat__ticks span:last-child { transform: translateX(-100%); }
+.tes-heat figcaption { font-size: 12px; color: var(--tes-dim); margin-top: 4px; }
+
+.tes-incin__specs { list-style: none; margin-top: 36px; border-top: 1px solid var(--tes-line-dark); }
+.tes-incin__spec {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center;
+  padding: 15px 0; border-bottom: 1px solid var(--tes-line-dark);
+  transition: background 0.25s, padding 0.35s var(--tes-ease);
+}
+.tes-incin__spec:hover { background: rgba(245, 168, 0, 0.06); padding-left: 12px; padding-right: 12px; }
+.tes-incin__spec-label { font-size: 14px; color: var(--tes-dim); }
+.tes-incin__spec-val {
+  display: inline-flex; align-items: center; gap: 12px; justify-content: flex-end; text-align: right;
+  font-family: var(--tes-mono); font-size: 13px; font-weight: 500; color: var(--tes-paper);
+  font-variant-numeric: tabular-nums;
+}
+.tes-incin__swatch { width: 34px; height: 8px; flex-shrink: 0; background: linear-gradient(90deg, var(--a), var(--b)); }
+
+/* ═══════════════ ПОЧЕМУ МЫ ═══════════════ */
+.tes-why-outer { background: var(--tes-mist); }
+.tes-why { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 88px; }
+.tes-why__intro { position: sticky; top: 108px; align-self: start; }
+.tes-why__intro .tes-sec-desc { margin-top: 22px; }
+.tes-why__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
+.tes-why__card { position: relative; padding: 32px 0 40px; border-top: 1px solid #d8cebf; }
+.tes-why__card::before {
+  content: ''; position: absolute; top: -1px; left: 0; right: 0; height: 2px;
+  background: var(--tes-rust); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s var(--tes-ease);
+}
+.tes-why__card:hover::before { transform: scaleX(1); }
+.tes-why__svg-icon { width: 36px; height: 36px; color: var(--tes-rust); margin-bottom: 22px; }
+.tes-why__card-title { font-family: var(--tes-display); font-size: 30px; font-weight: 800; line-height: 1; margin-bottom: 12px; }
+.tes-why__card-text { font-size: 15px; line-height: 1.7; color: var(--tes-smoke); }
+
+/* ═══════════════ КЛИЕНТЫ ═══════════════ */
+.tes-clients-bg { background: var(--tes-paper); }
+.tes-clients__list { list-style: none; border-top: 1px solid var(--tes-line); }
+.tes-clients__item {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px 64px; align-items: baseline;
+  padding: 26px 0; border-bottom: 1px solid var(--tes-line);
+  transition: background 0.3s, padding 0.4s var(--tes-ease);
+}
+.tes-clients__item:hover { background: var(--tes-mist); padding-left: 20px; padding-right: 20px; }
+.tes-clients__name { font-family: var(--tes-display); font-size: clamp(1.6rem, 2.4vw, 2.1rem); font-weight: 800; line-height: 1.05; }
+.tes-clients__desc { font-size: 15px; line-height: 1.65; color: var(--tes-smoke); max-width: 36rem; }
+.tes-clients__more { margin-top: 36px; font-size: 15px; color: var(--tes-smoke); }
+.tes-clients__more a {
+  color: var(--tes-ink); font-weight: 500;
+  background: linear-gradient(var(--tes-gold), var(--tes-gold)) left 100% / 100% 2px no-repeat;
+  padding-bottom: 2px; transition: color 0.2s;
+}
+.tes-clients__more a:hover { color: var(--tes-rust); }
+
+/* ═══════════════ ФОРМА ═══════════════ */
+.tes-form-section { background: var(--tes-paper); border-top: 1px solid var(--tes-line); }
+.tes-form-wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px 88px; align-items: start; }
+.tes-form-left__desc { font-size: 17px; line-height: 1.65; color: var(--tes-smoke); margin: 22px 0 40px; max-width: 32rem; }
+.tes-contacts { list-style: none; border-top: 1px solid var(--tes-line); }
+.tes-contacts a {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 16px; align-items: center;
+  padding: 16px 0; border-bottom: 1px solid var(--tes-line); transition: color 0.2s;
+}
+.tes-contacts__icon {
+  width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--tes-line);
+  display: inline-flex; align-items: center; justify-content: center; color: var(--tes-ink);
+  transition: background 0.25s, border-color 0.25s;
+}
+.tes-contacts__icon svg { width: 18px; height: 18px; }
+.tes-contacts__label {
+  display: block; font-family: var(--tes-mono); font-size: 10.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--tes-smoke); margin-bottom: 2px;
+}
+.tes-contacts__value { display: block; font-size: 18px; font-weight: 500; color: var(--tes-ink); overflow-wrap: anywhere; }
+.tes-contacts a::after { content: '→'; font-size: 18px; color: var(--tes-smoke); transition: transform 0.35s var(--tes-ease), color 0.2s; }
+.tes-contacts a:hover .tes-contacts__value { color: var(--tes-rust); }
+.tes-contacts a:hover .tes-contacts__icon { background: var(--tes-gold); border-color: var(--tes-gold); }
+.tes-contacts a:hover::after { transform: translateX(4px); color: var(--tes-rust); }
+
+.tes-root .tes-form {
+  position: relative; overflow: hidden;
+  background: var(--tes-ink); color: var(--tes-paper);
+  padding: 48px 44px 40px; border-radius: 2px;
+}
+.tes-root .tes-form::before {
+  content: ''; position: absolute; top: 0; right: 0; width: 64px; height: 64px;
+  background: var(--tes-gold); clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+.tes-form__title { font-family: var(--tes-display); font-size: 34px; font-weight: 800; line-height: 1; color: var(--tes-paper); margin-bottom: 30px; }
+.tes-igroup { margin-bottom: 8px; }
+.tes-root .tes-igroup label {
+  display: block; margin-bottom: 8px;
+  font-family: var(--tes-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--tes-dim);
+}
+.tes-root .tes-igroup input,
+.tes-root .tes-igroup textarea {
+  width: 100%; padding: 15px 16px; border-radius: 2px; outline: none;
+  font-size: 16px; color: var(--tes-paper);
+  background: var(--tes-ink-2); border: 1px solid var(--tes-line-dark);
+  transition: border-color 0.2s, background 0.2s;
+}
+.tes-root .tes-igroup input::placeholder,
+.tes-root .tes-igroup textarea::placeholder { color: rgba(252, 250, 246, 0.32); }
+.tes-root .tes-igroup input:focus,
+.tes-root .tes-igroup textarea:focus { border-color: var(--tes-gold); background: #342a21; }
+.tes-root .tes-igroup textarea { resize: vertical; min-height: 110px; }
+.tes-root .tes-form .t-input-error { font-size: 12px; color: #ff9a78; margin-top: 6px; min-height: 18px; }
+.tes-root .tes-form .tes-form__submit {
+  width: 100%; height: auto; margin-top: 6px; padding: 19px 16px;
+  background: var(--tes-gold); color: var(--tes-ink); border: none; border-radius: 2px; cursor: pointer;
+  font-family: var(--tes-text); font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  transition: background 0.25s, transform 0.2s var(--tes-ease);
+}
+.tes-root .tes-form .tes-form__submit:hover { background: var(--tes-amber); transform: translateY(-2px); }
+.tes-form__note { margin-top: 14px; font-size: 13px; color: var(--tes-dim); text-align: center; }
+.tes-form__success { padding: 8px 0 28px; margin-bottom: 24px; border-bottom: 1px solid var(--tes-line-dark); }
+.tes-form__success h3 { font-family: var(--tes-display); font-size: 34px; font-weight: 800; line-height: 1; color: var(--tes-gold); margin-bottom: 8px; }
+.tes-form__success p { font-size: 15px; color: var(--tes-dim); }
+.js-successbox { display: none; }
+
+/* ═══════════════ ПОДВАЛ ═══════════════ */
+.tes-footer { background: var(--tes-ink); color: var(--tes-dim); font-size: 14px; }
+.tes-footer__inner { max-width: 1280px; margin: 0 auto; padding: 72px 40px 32px; }
+.tes-footer__top { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 4fr); gap: 40px; padding-bottom: 48px; }
+.tes-footer__brand { font-family: var(--tes-display); font-size: 40px; font-weight: 800; line-height: 0.95; text-transform: uppercase; color: var(--tes-paper); }
+.tes-footer__tagline { margin-top: 12px; max-width: 22rem; line-height: 1.6; }
+.tes-footer__col-title {
+  font-family: var(--tes-mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--tes-gold); margin-bottom: 14px;
+}
+.tes-footer__links { list-style: none; display: grid; gap: 10px; }
+.tes-footer__links a { display: inline-flex; align-items: center; gap: 10px; color: var(--tes-paper); transition: color 0.2s; }
+.tes-footer__links a:hover { color: var(--tes-gold); }
+.tes-footer__links svg { width: 18px; height: 18px; color: var(--tes-gold); }
+.tes-footer__bottom {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+  padding-top: 24px; border-top: 1px solid var(--tes-line-dark); font-size: 13px;
+}
+
+/* ═══════════════ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ═══════════════ */
+.tes-reveal { transition: opacity 0.8s var(--tes-ease), transform 0.8s var(--tes-ease); }
+.tes-reveal.is-hidden { opacity: 0; transform: translateY(28px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .tes-root *, .tes-root *::before, .tes-root *::after { animation: none !important; transition: none !important; }
+  .tes-reveal.is-hidden { opacity: 1; transform: none; }
+}
+
+/* ═══════════════ АДАПТИВ ═══════════════ */
+@media (max-width: 1180px) {
+  .tes-nav__links { display: none; }
+  .tes-nav__right { margin-left: auto; }
+  .tes-plate { display: none; }
+}
+@media (max-width: 960px) {
+  .tes-nav__inner { padding: 0 24px; gap: 16px; }
+  .tes-nav__cta { display: none; }
+  .tes-nav__burger { display: flex; }
+  .tes-section { padding: 88px 24px; }
+  .tes-hero__inner { padding: 120px 24px 80px; }
+  .tes-hero__panel { width: 34%; }
+  .tes-head { grid-template-columns: minmax(0, 1fr); margin-bottom: 48px; }
+  .tes-products__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tes-incin { grid-template-columns: minmax(0, 1fr); gap: 72px; }
+  .tes-incin__img { aspect-ratio: 4 / 3; }
+  .tes-incin__badge { right: 12px; }
+  .tes-why { grid-template-columns: minmax(0, 1fr); }
+  .tes-why__intro { position: static; }
+  .tes-form-wrap { grid-template-columns: minmax(0, 1fr); }
+  .tes-clients__item { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .tes-footer__inner { padding: 56px 24px 28px; }
+  .tes-footer__top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .tes-footer__top > :first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .tes-hero { min-height: 0; }
+  .tes-hero__panel { display: none; }
+  .tes-hero__stripe {
+    display: block; position: absolute; left: 0; right: 0; bottom: 0; height: 12px; z-index: 1;
+    background: linear-gradient(var(--tes-gold) 0 25%, var(--tes-amber) 25% 50%, var(--tes-rust) 50% 75%, var(--tes-cherry) 75%);
+  }
+  .tes-hero__inner { padding: 112px 20px 72px; }
+  .tes-hero__lead { font-size: 17px; }
+  .tes-hero__actions .tes-btn { flex: 1 1 100%; justify-content: center; }
+  .tes-hero__stats { flex-direction: column; gap: 0; margin-top: 48px; }
+  .tes-hero__stat { padding: 0 0 20px; }
+  .tes-hero__stat + .tes-hero__stat { padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--tes-line); }
+  .tes-hero__stat-num { font-size: 40px; }
+  .tes-products__grid { grid-template-columns: minmax(0, 1fr); }
+  .tes-why__grid { grid-template-columns: minmax(0, 1fr); }
+  .tes-root .tes-form { padding: 36px 22px 30px; }
+  .tes-marquee__item { font-size: 20px; }
+}
+@media (max-width: 480px) {
+  .tes-nav__inner { padding: 0 20px; }
+  .tes-nav__right .tes-social { width: 36px; height: 36px; }
+  .tes-section { padding: 72px 20px; }
+  .tes-incin__spec { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .tes-incin__spec-val { justify-content: flex-start; text-align: left; }
+  .tes-incin__badge { right: 0; bottom: -20px; padding: 16px 18px; }
+  .tes-incin__badge strong { font-size: 52px; }
+  .tes-footer__top { grid-template-columns: minmax(0, 1fr); }
+  .tes-footer__inner { padding: 48px 20px 24px; }
+}
+</style>
+
+<section class="tes-root" aria-label="Сайт ТОО Темирэнергострой">
+
+  <!-- ══ NAV ══ -->
+  <nav class="tes-nav" aria-label="Главная навигация">
+    <div class="tes-nav__inner">
+      <a class="tes-nav__logo" href="#hero" aria-label="Темирэнергострой — на главную">
+        <span class="tes-nav__logo-name">Темирэнергострой</span>
+        <span class="tes-nav__logo-sub">Производственная компания</span>
+      </a>
+      <div class="tes-nav__links">
+        <a href="#products">Продукция</a>
+        <a href="#incinerator">Печь «Веста Плюс»</a>
+        <a href="#clients">Кому подходит</a>
+        <a href="#form">Контакты</a>
+      </div>
+      <div class="tes-nav__right">
+        <a class="tes-social" href="https://t.me/temires_bot" target="_blank" rel="noopener" aria-label="Telegram-бот @temires_bot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M21.2 4.3 2.9 11.4c-.8.3-.8 1.4 0 1.7l4.4 1.6 1.7 5.2c.2.7 1.1.9 1.6.4l2.5-2.3 4.7 3.4c.6.4 1.4.1 1.6-.6L22.6 5.8c.2-1-.6-1.8-1.4-1.5Z"/><path d="m7.3 14.7 10.4-6.8-7.6 7.7-.3 3.3"/></svg>
+        </a>
+        <a class="tes-social" href="https://www.instagram.com/temirenergostroy/" target="_blank" rel="noopener" aria-label="Instagram @temirenergostroy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#form" class="tes-btn tes-btn--gold tes-nav__cta">Оставить заявку</a>
+        <button class="tes-nav__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="tes-mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="tes-nav__mobile" id="tes-mobile-menu">
+      <a href="#products">Продукция</a>
+      <a href="#incinerator">Печь «Веста Плюс»</a>
+      <a href="#clients">Кому подходит</a>
+      <a href="#form">Контакты</a>
+      <div class="tes-nav__mobile-social">
+        <a href="https://t.me/temires_bot" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M21.2 4.3 2.9 11.4c-.8.3-.8 1.4 0 1.7l4.4 1.6 1.7 5.2c.2.7 1.1.9 1.6.4l2.5-2.3 4.7 3.4c.6.4 1.4.1 1.6-.6L22.6 5.8c.2-1-.6-1.8-1.4-1.5Z"/><path d="m7.3 14.7 10.4-6.8-7.6 7.7-.3 3.3"/></svg>
+          @temires_bot
+        </a>
+        <a href="https://www.instagram.com/temirenergostroy/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+          @temirenergostroy
+        </a>
+      </div>
+      <a href="#form" class="tes-btn tes-btn--gold">Оставить заявку</a>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <div class="tes-hero" id="hero">
+    <div class="tes-hero__panel" aria-hidden="true">
+      <span class="tes-hero__band tes-hero__band--1"></span>
+      <span class="tes-hero__band tes-hero__band--2"></span>
+      <span class="tes-hero__band tes-hero__band--3"></span>
+      <span class="tes-hero__band tes-hero__band--4"></span>
+    </div>
+    <canvas class="tes-hero__leaves" id="tes-leaves" aria-hidden="true"></canvas>
+    <span class="tes-hero__stripe" aria-hidden="true"></span>
+
+    <div class="tes-hero__inner">
+      <p class="tes-hero__eyebrow">ТОО «Темирэнергострой» · Казахстан</p>
+      <h1 class="tes-hero__title">Инженерно<span class="tes-hero__hyphen">‑</span><br>производственная<br>компания</h1>
+      <p class="tes-hero__lead">Металлоконструкции, печи-инсинераторы и блочно-модульные здания. Изготавливаем под заказ на собственном производстве, доставляем и монтируем по всему Казахстану.</p>
+      <div class="tes-hero__actions">
+        <a href="#form" class="tes-btn tes-btn--gold">Рассчитать стоимость</a>
+        <a href="https://t.me/temires_bot" target="_blank" rel="noopener" class="tes-btn tes-btn--line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M21.2 4.3 2.9 11.4c-.8.3-.8 1.4 0 1.7l4.4 1.6 1.7 5.2c.2.7 1.1.9 1.6.4l2.5-2.3 4.7 3.4c.6.4 1.4.1 1.6-.6L22.6 5.8c.2-1-.6-1.8-1.4-1.5Z"/><path d="m7.3 14.7 10.4-6.8-7.6 7.7-.3 3.3"/></svg>
+          Написать в Telegram
+        </a>
+      </div>
+      <div class="tes-hero__stats">
+        <div class="tes-hero__stat">
+          <div class="tes-hero__stat-num"><span>1</span>&nbsp;в&nbsp;Казахстане</div>
+          <div class="tes-hero__stat-label">единственный производитель<br>печей-инсинераторов</div>
+        </div>
+        <div class="tes-hero__stat">
+          <div class="tes-hero__stat-num"><span>3</span>&nbsp;направления</div>
+          <div class="tes-hero__stat-label">металлоконструкции, печи,<br>модульные здания</div>
+        </div>
+      </div>
+    </div>
+
+    <a class="tes-plate" href="#incinerator" aria-label="Печь-инсинератор «Веста Плюс» — характеристики">
+      <span class="tes-plate__rivet"></span><span class="tes-plate__rivet"></span><span class="tes-plate__rivet"></span><span class="tes-plate__rivet"></span>
+      <span class="tes-plate__kicker">Печь-инсинератор</span>
+      <span class="tes-plate__name">«Веста Плюс»</span>
+      <span class="tes-plate__row"><span>Камеры</span><i></i><span>3</span></span>
+      <span class="tes-plate__row"><span>Дожигание</span><i></i><span>1100–1200 °C</span></span>
+      <span class="tes-plate__row"><span>Остаток золы</span><i></i><span>5–20 %</span></span>
+      <span class="tes-plate__foot"><span>Сделано в Казахстане</span><b>→</b></span>
+    </a>
+  </div>
+
+  <!-- ══ БЕГУЩАЯ СТРОКА ══ -->
+  <div class="tes-marquee-wrap" aria-hidden="true">
+    <div class="tes-marquee" id="tes-marquee">
+      <div class="tes-marquee__track">
+        <span class="tes-marquee__item">Печи-инсинераторы</span>
+        <span class="tes-marquee__item">Металлоконструкции</span>
+        <span class="tes-marquee__item">Модульные здания</span>
+        <span class="tes-marquee__item">Сертифицировано в Казахстане</span>
+        <span class="tes-marquee__item">Производство под заказ</span>
+        <span class="tes-marquee__item">Доставка по всему Казахстану</span>
+        <span class="tes-marquee__item">Монтаж и обучение</span>
+        <span class="tes-marquee__item">Собственные мощности</span>
+      </div>
+      <div class="tes-marquee__track">
+        <span class="tes-marquee__item">Печи-инсинераторы</span>
+        <span class="tes-marquee__item">Металлоконструкции</span>
+        <span class="tes-marquee__item">Модульные здания</span>
+        <span class="tes-marquee__item">Сертифицировано в Казахстане</span>
+        <span class="tes-marquee__item">Производство под заказ</span>
+        <span class="tes-marquee__item">Доставка по всему Казахстану</span>
+        <span class="tes-marquee__item">Монтаж и обучение</span>
+        <span class="tes-marquee__item">Собственные мощности</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ПРОДУКЦИЯ ══ -->
+  <div class="tes-products-bg" id="products">
+    <div class="tes-section">
+      <div class="tes-head tes-reveal">
+        <div>
+          <p class="tes-eyebrow">Продукция</p>
+          <h2 class="tes-sec-title">Три направления — одно предприятие</h2>
+        </div>
+        <p class="tes-sec-desc">Изготавливаем под заказ, без посредников. От чертежа до готового изделия — на собственных мощностях в Казахстане.</p>
+      </div>
+      <div class="tes-products__grid">
+        <div class="tes-prod-card tes-reveal">
+          <div class="tes-prod-card__img-wrap">
+            <img class="tes-prod-card__img" src="https://static.tildacdn.pro/tild3531-3166-4338-b362-613936633333/WhatsApp_Image_2026-.jpeg" alt="Печь-инсинератор «Веста Плюс»" loading="lazy">
+          </div>
+          <div class="tes-prod-card__body">
+            <p class="tes-prod-card__tag">Печь-инсинератор</p>
+            <h3 class="tes-prod-card__title">Печи-инсинераторы «Веста Плюс»</h3>
+            <p class="tes-prod-card__text">Сжигание отходов при 1100–1200 °C прямо на вашей территории. Единственное сертифицированное решение такого типа в Казахстане.</p>
+            <a href="#incinerator" class="tes-prod-card__link">Характеристики печи</a>
+          </div>
+        </div>
+        <div class="tes-prod-card tes-reveal">
+          <div class="tes-prod-card__img-wrap">
+            <img class="tes-prod-card__img" src="https://static.tildacdn.pro/tild3864-3534-4136-b164-643763356666/14369636.jpg" alt="Металлоконструкции" loading="lazy">
+          </div>
+          <div class="tes-prod-card__body">
+            <p class="tes-prod-card__tag">Металлоизделия · металлоконструкции</p>
+            <h3 class="tes-prod-card__title">Металлоконструкции любой сложности</h3>
+            <p class="tes-prod-card__text">Каркасы, балки, фермы, нестандартные детали — по вашим чертежам или разработаем сами. От единичных заказов до серийных партий.</p>
+            <a href="#form" class="tes-prod-card__link">Запросить расчёт</a>
+          </div>
+        </div>
+        <div class="tes-prod-card tes-reveal">
+          <div class="tes-prod-card__img-wrap">
+            <img class="tes-prod-card__img" src="https://static.tildacdn.pro/tild3164-3964-4638-a236-366361623766/photo.png" alt="Блочно-модульные здания" loading="lazy">
+          </div>
+          <div class="tes-prod-card__body">
+            <p class="tes-prod-card__tag">БМЗ</p>
+            <h3 class="tes-prod-card__title">Блочно-модульные здания</h3>
+            <p class="tes-prod-card__text">Жилые, административные, производственные. Доставка и монтаж в любой точке Казахстана. Готовое здание за недели, не месяцы.</p>
+            <a href="#form" class="tes-prod-card__link">Запросить расчёт</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ПЕЧЬ ══ -->
+  <div class="tes-kiln" id="incinerator">
+    <div class="tes-section">
+      <div class="tes-head tes-reveal">
+        <div>
+          <p class="tes-eyebrow">Патентованная технология</p>
+          <h2 class="tes-sec-title">Печь-инсинератор «Веста Плюс»</h2>
+        </div>
+      </div>
+      <div class="tes-incin tes-reveal">
+        <div class="tes-incin__img-wrap">
+          <img class="tes-incin__img" src="https://static.tildacdn.pro/tild3531-3166-4338-b362-613936633333/WhatsApp_Image_2026-.jpeg" alt="Печь-инсинератор «Веста Плюс»" loading="lazy">
+          <div class="tes-incin__badge"><strong>10×</strong>меньше объём отходов после сжигания</div>
+        </div>
+        <div class="tes-incin__content">
+          <p class="tes-incin__text"><b>«Веста Плюс» обезвреживает биологические, ветеринарные и производственные отходы прямо на вашей территории.</b> Не нужно нанимать подрядчика по вывозу и платить за утилизацию каждый месяц.</p>
+          <p class="tes-incin__text">Три камеры сгорания дожигают дымовые газы при 1100–1200 °C. На выходе — 5–20% золы от исходной массы. Процесс контролирует автоматический шкаф управления — оператор только загружает отходы.</p>
+
+          <figure class="tes-heat" aria-label="Рабочие температуры печи на шкале цветов каления стали: камера сгорания 700–900 °C, дожигание 1100–1200 °C">
+            <div class="tes-heat__marks" aria-hidden="true">
+              <span class="tes-heat__mark" style="--from: 25%; --to: 50%;"><b>Камера сгорания</b><span>700–900 °C</span></span>
+              <span class="tes-heat__mark" style="--from: 75%; --to: 87.5%;"><b>Дожигание</b><span>1100–1200 °C</span></span>
+            </div>
+            <div class="tes-heat__bar" aria-hidden="true"></div>
+            <div class="tes-heat__ticks" aria-hidden="true">
+              <span style="--at: 0%;">500</span><span style="--at: 25%;">700</span><span style="--at: 50%;">900</span><span style="--at: 75%;">1100</span><span style="--at: 100%;">1300 °C</span>
+            </div>
+            <figcaption>Цвет раскалённой стали при этой температуре</figcaption>
+          </figure>
+
+          <ul class="tes-incin__specs">
+            <li class="tes-incin__spec"><span class="tes-incin__spec-label">Температура в камере сгорания</span><span class="tes-incin__spec-val"><i class="tes-incin__swatch" style="--a: #7d1f0e; --b: #e05518;" aria-hidden="true"></i>700–900 °C</span></li>
+            <li class="tes-incin__spec"><span class="tes-incin__spec-label">Температура дожигания</span><span class="tes-incin__spec-val"><i class="tes-incin__swatch" style="--a: #f6b028; --b: #fbd767;" aria-hidden="true"></i>1100–1200 °C</span></li>
+            <li class="tes-incin__spec"><span class="tes-incin__spec-label">Количество камер</span><span class="tes-incin__spec-val">3 — основная + 2 дожигания</span></li>
+            <li class="tes-incin__spec"><span class="tes-incin__spec-label">Выход золы</span><span class="tes-incin__spec-val">5–20% от исходной массы</span></li>
+            <li class="tes-incin__spec"><span class="tes-incin__spec-label">Топливо</span><span class="tes-incin__spec-val">Дизель или газ</span></li>
+            <li class="tes-incin__spec"><span class="tes-incin__spec-label">Управление</span><span class="tes-incin__spec-val">Автоматический шкаф</span></li>
+            <li class="tes-incin__spec"><span class="tes-incin__spec-label">Футеровка камеры</span><span class="tes-incin__spec-val">Шамотный кирпич</span></li>
+            <li class="tes-incin__spec"><span class="tes-incin__spec-label">Материал корпуса</span><span class="tes-incin__spec-val">Жаростойкая сталь</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ПОЧЕМУ МЫ ══ -->
+  <div class="tes-why-outer" id="why">
+    <div class="tes-section tes-why">
+      <div class="tes-why__intro tes-reveal">
+        <p class="tes-eyebrow">Почему мы</p>
+        <h2 class="tes-sec-title">Четыре причины работать с нами</h2>
+        <p class="tes-sec-desc">Коротко — что отличает нас от других производителей.</p>
+      </div>
+      <div class="tes-why__grid tes-reveal">
+        <div class="tes-why__card">
+          <svg class="tes-why__svg-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <rect x="4" y="7" width="28" height="22"/><path d="M4 14.3h28M4 21.7h28M14 7v7.3M24 7v7.3M9 14.3v7.4M19 14.3v7.4M29 14.3v7.4M14 21.7V29M24 21.7V29"/>
+          </svg>
+          <h3 class="tes-why__card-title">Расчёт на долгую работу</h3>
+          <p class="tes-why__card-text">Жаростойкая сталь корпуса и шамотная футеровка рассчитаны на постоянную работу при высоких температурах. Не экономим на материалах.</p>
+        </div>
+        <div class="tes-why__card">
+          <svg class="tes-why__svg-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 31V17l8 4.5V17l8 4.5V17l8 4.5V5h6v26H3Z"/><path d="M8 26h3M15 26h3M22 26h3"/>
+          </svg>
+          <h3 class="tes-why__card-title">Всё делаем сами</h3>
+          <p class="tes-why__card-text">Металлоконструкции, печи, модульные здания — на одном предприятии. Без субподрядчиков, сроки и качество под нашим контролем.</p>
+        </div>
+        <div class="tes-why__card">
+          <svg class="tes-why__svg-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 9h20v16H2zM22 14h7l5 6v5H22"/><circle cx="8.5" cy="26.5" r="3" fill="var(--tes-mist)"/><circle cx="27.5" cy="26.5" r="3" fill="var(--tes-mist)"/>
+          </svg>
+          <h3 class="tes-why__card-title">Доставка и монтаж</h3>
+          <p class="tes-why__card-text">Работаем по всему Казахстану. Доставляем, монтируем на объекте, запускаем и обучаем персонал работе с оборудованием.</p>
+        </div>
+        <div class="tes-why__card">
+          <svg class="tes-why__svg-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="18" cy="14" r="10"/><path d="m13.5 14 3 3 6-6.5"/><path d="M11.5 21.8 9 33l9-4.5 9 4.5-2.5-11.2"/>
+          </svg>
+          <h3 class="tes-why__card-title">Сертифицированное качество</h3>
+          <p class="tes-why__card-text">«Веста Плюс» — единственная сертифицированная печь-инсинератор казахстанского производства. Патентованная технология.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ КЛИЕНТЫ ══ -->
+  <div class="tes-clients-bg" id="clients">
+    <div class="tes-section">
+      <div class="tes-head tes-reveal">
+        <div>
+          <p class="tes-eyebrow">Кому подходит</p>
+          <h2 class="tes-sec-title">Оборудование для тех, кто работает с отходами</h2>
+        </div>
+        <p class="tes-sec-desc">К нам обращаются предприятия, которым нужна организованная, безопасная и экономически оправданная утилизация.</p>
+      </div>
+      <ul class="tes-clients__list tes-reveal">
+        <li class="tes-clients__item"><span class="tes-clients__name">Птицефабрики</span><span class="tes-clients__desc">Утилизация биологических отходов птицеводства на территории фабрики.</span></li>
+        <li class="tes-clients__item"><span class="tes-clients__name">Животноводческие хозяйства</span><span class="tes-clients__desc">Обезвреживание падежа и побочных продуктов без вывоза на полигон.</span></li>
+        <li class="tes-clients__item"><span class="tes-clients__name">Фермерские хозяйства</span><span class="tes-clients__desc">Печи малой и средней производительности для частных и кооперативных ферм.</span></li>
+        <li class="tes-clients__item"><span class="tes-clients__name">Ветеринарные станции</span><span class="tes-clients__desc">Сжигание биоматериалов и медицинских отходов ветеринарного профиля.</span></li>
+        <li class="tes-clients__item"><span class="tes-clients__name">Мясоперерабатывающие предприятия</span><span class="tes-clients__desc">Утилизация отходов производства с соблюдением санитарных норм.</span></li>
+        <li class="tes-clients__item"><span class="tes-clients__name">Агропромышленные комплексы</span><span class="tes-clients__desc">Комплексные решения для крупных холдингов с несколькими площадками.</span></li>
+        <li class="tes-clients__item"><span class="tes-clients__name">Промышленные заводы</span><span class="tes-clients__desc">Сжигание производственных отходов, не подлежащих переработке.</span></li>
+        <li class="tes-clients__item"><span class="tes-clients__name">Строительные компании</span><span class="tes-clients__desc">Металлоконструкции и модульные здания для объектов любого масштаба.</span></li>
+      </ul>
+      <p class="tes-clients__more">Не нашли свою отрасль? Опишите задачу <a href="https://t.me/temires_bot" target="_blank" rel="noopener">в Telegram-боте</a> или <a href="#form">в форме ниже</a>.</p>
+    </div>
+  </div>
+
+  <!-- ══ ФОРМА ══ -->
+  <div class="tes-form-section" id="form">
+    <div class="tes-section">
+      <div class="tes-form-wrap">
+        <div class="tes-form-left tes-reveal">
+          <p class="tes-eyebrow">Заявка</p>
+          <h2 class="tes-sec-title">Расскажите, что вам нужно — пришлём расчёт</h2>
+          <p class="tes-form-left__desc">Опишите задачу в свободной форме: тип оборудования, объёмы, сроки. В течение рабочего дня пришлём коммерческое предложение с ценой и характеристиками.</p>
+          <ul class="tes-contacts">
+            <li>
+              <a href="tel:+77000229689">
+                <span class="tes-contacts__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .5h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 15.92v1z"/></svg></span>
+                <span><span class="tes-contacts__label">Телефон</span><span class="tes-contacts__value">+7 700 022 96 89</span></span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:info@plm.kz">
+                <span class="tes-contacts__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+                <span><span class="tes-contacts__label">Почта</span><span class="tes-contacts__value">info@plm.kz</span></span>
+              </a>
+            </li>
+            <li>
+              <a href="https://t.me/temires_bot" target="_blank" rel="noopener">
+                <span class="tes-contacts__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M21.2 4.3 2.9 11.4c-.8.3-.8 1.4 0 1.7l4.4 1.6 1.7 5.2c.2.7 1.1.9 1.6.4l2.5-2.3 4.7 3.4c.6.4 1.4.1 1.6-.6L22.6 5.8c.2-1-.6-1.8-1.4-1.5Z"/><path d="m7.3 14.7 10.4-6.8-7.6 7.7-.3 3.3"/></svg></span>
+                <span><span class="tes-contacts__label">Telegram-бот</span><span class="tes-contacts__value">@temires_bot</span></span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/temirenergostroy/" target="_blank" rel="noopener">
+                <span class="tes-contacts__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+                <span><span class="tes-contacts__label">Instagram</span><span class="tes-contacts__value">@temirenergostroy</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="tes-reveal">
+          <form id="tes-main-form" name="tes-main-form" class="tes-form t-form js-form-proccess" role="form" action="#" method="POST" data-vibeblock-form="true" data-inputbox=".tes-igroup" data-formactiontype="2" data-error-popup="y" data-success-popup="y" novalidate="">
+            <input type="hidden" name="formservices[]" value="2e353e7a87e3486ad95dd4903fcfd764" class="js-formaction-services">
+            <input type="hidden" name="formservices[]" value="342c99610d66767455c5822086041965" class="js-formaction-services">
+            <div class="js-successbox tes-form__success">
+              <h3>Заявка принята</h3>
+              <p>Перезвоним в течение рабочего дня и уточним детали.</p>
+            </div>
+            <h3 class="tes-form__title">Параметры заявки</h3>
+            <div class="tes-igroup">
+              <label for="tes-name">Как к вам обращаться</label>
+              <input type="text" id="tes-name" name="Name" placeholder="Иван Петров" class="js-tilda-rule" data-tilda-req="1">
+              <div class="t-input-error"></div>
+            </div>
+            <div class="tes-igroup">
+              <label for="tes-phone">Телефон для связи</label>
+              <input type="tel" id="tes-phone" name="Phone" placeholder="+7 ___ ___ __ __" class="js-tilda-rule" data-tilda-req="1" data-tilda-rule="phone">
+              <div class="t-input-error"></div>
+            </div>
+            <div class="tes-igroup">
+              <label for="tes-company">Предприятие</label>
+              <input type="text" id="tes-company" name="Company" placeholder="ТОО «Название»">
+              <div class="t-input-error"></div>
+            </div>
+            <div class="tes-igroup">
+              <label for="tes-interest">Что нужно посчитать</label>
+              <textarea id="tes-interest" name="Message" placeholder="Например: печь-инсинератор на 200 кг в час, металлокаркас здания 12×24 м..."></textarea>
+              <div class="t-input-error"></div>
+            </div>
+            <button type="submit" class="t-submit tes-form__submit t-btnflex t-btnflex_md">
+              <span class="t-btnflex__text">Отправить заявку</span>
+            </button>
+            <p class="tes-form__note">Ответим в течение рабочего дня</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ПОДВАЛ ══ -->
+  <footer class="tes-footer" aria-label="Подвал сайта">
+    <div class="tes-footer__inner">
+      <div class="tes-footer__top">
+        <div>
+          <div class="tes-footer__brand">Темирэнергострой</div>
+          <p class="tes-footer__tagline">Металлоконструкции, печи-инсинераторы и блочно-модульные здания. Собственное производство в Казахстане.</p>
+        </div>
+        <div>
+          <p class="tes-footer__col-title">Контакты</p>
+          <ul class="tes-footer__links">
+            <li><a href="tel:+77000229689">+7 700 022 96 89</a></li>
+            <li><a href="mailto:info@plm.kz">info@plm.kz</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="tes-footer__col-title">Мы в соцсетях</p>
+          <ul class="tes-footer__links">
+            <li><a href="https://t.me/temires_bot" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M21.2 4.3 2.9 11.4c-.8.3-.8 1.4 0 1.7l4.4 1.6 1.7 5.2c.2.7 1.1.9 1.6.4l2.5-2.3 4.7 3.4c.6.4 1.4.1 1.6-.6L22.6 5.8c.2-1-.6-1.8-1.4-1.5Z"/><path d="m7.3 14.7 10.4-6.8-7.6 7.7-.3 3.3"/></svg>Telegram · @temires_bot</a></li>
+            <li><a href="https://www.instagram.com/temirenergostroy/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>Instagram · @temirenergostroy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="tes-footer__bottom">
+        <span>© <span id="tes-year"></span> ТОО «Темирэнергострой». Все права защищены</span>
+        <span>Казахстан</span>
+      </div>
+    </div>
+  </footer>
+</section>
+
+<script>
+(function () {
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── Год в подвале ── */
+  var yearEl = document.getElementById('tes-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ── Мобильное меню ── */
+  var burger = document.querySelector('.tes-nav__burger');
+  var mobileMenu = document.querySelector('.tes-nav__mobile');
+  if (burger && mobileMenu) {
+    var setMenu = function (open) {
+      mobileMenu.classList.toggle('is-open', open);
+      burger.classList.toggle('is-open', open);
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    };
+    burger.addEventListener('click', function () { setMenu(!mobileMenu.classList.contains('is-open')); });
+    mobileMenu.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () { setMenu(false); });
+    });
+  }
+
+  /* ── Плавный скролл к якорям ── */
+  document.querySelectorAll('.tes-root a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      var top = target.getBoundingClientRect().top + window.pageYOffset - 68;
+      window.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+  });
+
+  /* ── Линия под шапкой при скролле ── */
+  var nav = document.querySelector('.tes-nav');
+  if (nav) {
+    var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 10); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ── Появление при скролле ── */
+  var revealEls = document.querySelectorAll('.tes-reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.remove('is-hidden'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function (el) {
+      if (el.getBoundingClientRect().top < window.innerHeight) return; /* то, что уже на экране, не прячем */
+      el.classList.add('is-hidden');
+      io.observe(el);
+    });
+  }
+
+  /* ── Листопад на первом экране ── */
+  (function () {
+    var canvas = document.getElementById('tes-leaves');
+    if (!canvas || !canvas.getContext) return;
+    var hero = canvas.parentElement;
+    var ctx = canvas.getContext('2d');
+    var W = 0, H = 0, leaves = [], running = false, heroVisible = true, last = 0, clock = 0;
+
+    /* лицевая и изнаночная сторона листа: берёзовое золото → охра → ржавчина → вишня */
+    var COLORS = [
+      ['#f5a800', '#c98a00'], ['#f7c548', '#d6a12a'], ['#e2810f', '#b5650b'],
+      ['#c8561c', '#9a4015'], ['#a8461b', '#7d3213'], ['#7a2a14', '#561c0d']
+    ];
+    var SHAPES = [
+      function (c) { c.moveTo(0, .5); c.bezierCurveTo(.46, .32, .4, -.12, 0, -.5); c.bezierCurveTo(-.4, -.12, -.46, .32, 0, .5); },  /* берёза */
+      function (c) { c.moveTo(0, .4); c.bezierCurveTo(.62, .46, .48, .02, 0, -.5); c.bezierCurveTo(-.48, .02, -.62, .46, 0, .4); }, /* тополь */
+      function (c) { c.moveTo(0, .5); c.bezierCurveTo(.24, .24, .2, -.22, 0, -.5); c.bezierCurveTo(-.2, -.22, -.24, .24, 0, .5); }  /* ива */
+    ];
+    function rand(a, b) { return a + Math.random() * (b - a); }
+    function pick(arr) { return arr[(Math.random() * arr.length) | 0]; }
+    function makeLeaf(anywhere) {
+      var z = rand(.45, 1);
+      return {
+        x: rand(0, W), y: anywhere ? rand(-.05, 1) * H : rand(-90, -30), z: z,
+        size: rand(24, 42) * z * (W < 640 ? .75 : 1),
+        vy: rand(.32, .6) * (.55 + z * .6), vx: rand(-.08, .08),
+        sa: rand(12, 40) * z, sf: rand(.012, .022), sp: rand(0, 6.28),
+        rot: rand(0, 6.28), rs: rand(-.01, .01), ff: rand(.018, .045), fp: rand(0, 6.28),
+        shape: pick(SHAPES), color: pick(COLORS), t: rand(0, 600)
+      };
+    }
+    function drawLeaf(l) {
+      var flip = Math.cos(l.t * l.ff + l.fp);
+      var sy = (flip < 0 ? -1 : 1) * (.3 + .7 * Math.abs(flip)); /* лист переворачивается, но не превращается в нитку */
+      ctx.save();
+      ctx.translate(l.x + Math.sin(l.t * l.sf + l.sp) * l.sa, l.y);
+      ctx.rotate(l.rot + Math.sin(l.t * l.sf * .7 + l.sp) * .5);
+      ctx.scale(l.size, l.size * sy);
+      ctx.globalAlpha = .6 + l.z * .4;
+      ctx.beginPath(); l.shape(ctx); ctx.closePath();
+      ctx.fillStyle = flip < 0 ? l.color[1] : l.color[0];
+      ctx.fill();
+      ctx.beginPath(); ctx.moveTo(0, .64); ctx.lineTo(0, -.36);
+      ctx.lineWidth = .045; ctx.strokeStyle = 'rgba(30,24,19,.3)'; ctx.stroke();
+      ctx.restore();
+    }
+    function drawAll() { ctx.clearRect(0, 0, W, H); for (var i = 0; i < leaves.length; i++) drawLeaf(leaves[i]); }
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = hero.offsetWidth, h = hero.offsetHeight;
+      if (w === W && h === H) return;
+      W = w; H = h;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var count = Math.max(8, Math.min(24, Math.round(W * H / 60000)));
+      while (leaves.length < count) leaves.push(makeLeaf(true));
+      leaves.length = count;
+      drawAll();
+    }
+    function frame(now) {
+      if (!running) return;
+      var dt = last ? Math.min((now - last) / 16.667, 3) : 1;
+      last = now; clock += dt;
+      var wind = Math.sin(clock * .004) * .12 + Math.sin(clock * .0011 + 1) * .1;
+      for (var i = 0; i < leaves.length; i++) {
+        var l = leaves[i];
+        l.t += dt; l.y += l.vy * dt; l.x += (l.vx + wind * l.z) * dt; l.rot += l.rs * dt;
+        if (l.x < -60) l.x = W + 50; else if (l.x > W + 60) l.x = -50;
+        if (l.y > H + 40) leaves[i] = makeLeaf(false);
+      }
+      drawAll();
+      requestAnimationFrame(frame);
+    }
+    function start() { if (running || reduceMotion || !heroVisible || document.hidden) return; running = true; last = 0; requestAnimationFrame(frame); }
+    function stop() { running = false; }
+
+    resize();
+    start();
+    var resizeTimer;
+    window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(resize, 150); }, { passive: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        heroVisible = entries[0].isIntersecting;
+        if (heroVisible) start(); else stop();
+      }).observe(hero);
+    }
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+  })();
+
+  /* ── Бегущая строка: плавная скорость, замедление при наведении ── */
+  (function () {
+    var marquee = document.getElementById('tes-marquee');
+    if (!marquee || reduceMotion) return;
+    marquee.style.animation = 'none';
+    var pos = 0, baseSpeed = 0.55, speed = baseSpeed, targetSpeed = baseSpeed, trackW = 0, waveTime = 0;
+    function measureTrack() {
+      var track = marquee.querySelector('.tes-marquee__track');
+      trackW = track ? track.offsetWidth : 0;
+    }
+    measureTrack();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureTrack);
+    window.addEventListener('resize', measureTrack, { passive: true });
+    var wrap = marquee.closest('.tes-marquee-wrap');
+    if (wrap) {
+      wrap.addEventListener('mouseenter', function () { targetSpeed = baseSpeed * 0.3; });
+      wrap.addEventListener('mouseleave', function () { targetSpeed = baseSpeed; });
+    }
+    (function animMarquee() {
+      waveTime += 0.012;
+      var waveSpeed = baseSpeed * (1 + 0.2 * Math.sin(waveTime));
+      speed += (waveSpeed * (targetSpeed / baseSpeed) - speed) * 0.04;
+      pos -= speed;
+      if (trackW > 0 && Math.abs(pos) >= trackW) pos += trackW;
+      marquee.style.transform = 'translateX(' + pos + 'px)';
+      requestAnimationFrame(animMarquee);
+    })();
+  })();
+
+  /* ── Форма (обработчик Тильды) ── */
+  var form = document.getElementById('tes-main-form');
+  if (form) {
+    var submitBtn = form.querySelector('[type="submit"]');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (typeof window.t_forms__initBtnClick === 'function') {
+        window.t_forms__initBtnClick({ target: submitBtn, srcElement: submitBtn, preventDefault: function () {} });
+      }
+    });
+  }
+})();
+</script>
