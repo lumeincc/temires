@@ -105,6 +105,12 @@
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
+/* Листопад: задний слой за контентом, передний — над ним (ниже шапки) */
+.tes-root { position: relative; z-index: 0; }
+.tes-root > :where(div, footer) { position: relative; z-index: 1; }
+.tes-leaves { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.tes-leaves--back { z-index: 0; }
+.tes-leaves--front { z-index: 60; }
 .tes-root ::selection { background: var(--tes-gold); color: var(--tes-ink); }
 .tes-root a:focus-visible,
 .tes-root button:focus-visible { outline: 2px solid var(--tes-gold); outline-offset: 3px; }
@@ -201,7 +207,7 @@
 .tes-hero {
   position: relative; min-height: 100vh; min-height: 100svh;
   display: flex; align-items: center; overflow: hidden;
-  background: var(--tes-paper); isolation: isolate;
+  background: transparent; isolation: isolate;
 }
 .tes-hero__panel { position: absolute; top: 0; right: 0; bottom: 0; width: 38%; z-index: 1; }
 .tes-hero__band {
@@ -216,7 +222,6 @@
   content: ''; position: absolute; inset: 0; opacity: 0.22; mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .25 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.tes-hero__leaves { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
 .tes-hero__stripe { display: none; }
 .tes-hero__inner {
   position: relative; z-index: 3; width: 100%;
@@ -299,7 +304,7 @@
 .tes-sec-desc { font-size: 17px; line-height: 1.65; color: var(--tes-smoke); max-width: 34rem; }
 
 /* ═══════════════ ПРОДУКЦИЯ ═══════════════ */
-.tes-products-bg { background: var(--tes-paper); }
+.tes-products-bg { background: transparent; }
 .tes-products__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 32px; }
 .tes-prod-card { display: flex; flex-direction: column; }
 .tes-prod-card__img-wrap { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: var(--tes-mist); }
@@ -336,7 +341,7 @@
 .tes-prod-card__link:hover::after { transform: translateX(6px); }
 
 /* ═══════════════ ПЕЧЬ (светлая секция под белое фото) ═══════════════ */
-.tes-kiln { position: relative; background: var(--tes-paper); color: var(--tes-ink); overflow: hidden; isolation: isolate; border-top: 1px solid var(--tes-line); }
+.tes-kiln { position: relative; background: transparent; color: var(--tes-ink); overflow: hidden; isolation: isolate; border-top: 1px solid var(--tes-line); }
 .tes-incin { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 88px; align-items: start; }
 .tes-incin__img-wrap { position: relative; margin: 14px 0 0 14px; }
 .tes-incin__img-wrap::before {
@@ -403,7 +408,7 @@
 .tes-incin__swatch { width: 34px; height: 8px; flex-shrink: 0; background: linear-gradient(90deg, var(--a), var(--b)); }
 
 /* ═══════════════ ПОЧЕМУ МЫ ═══════════════ */
-.tes-why-outer { background: var(--tes-paper); border-top: 1px solid var(--tes-line); }
+.tes-why-outer { background: transparent; border-top: 1px solid var(--tes-line); }
 .tes-why { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 88px; }
 .tes-why__intro { position: sticky; top: 108px; align-self: start; }
 .tes-why__intro .tes-sec-desc { margin-top: 22px; }
@@ -420,7 +425,7 @@
 .tes-why__card-text { font-size: 15px; line-height: 1.7; color: var(--tes-smoke); }
 
 /* ═══════════════ КЛИЕНТЫ ═══════════════ */
-.tes-clients-bg { background: var(--tes-paper); }
+.tes-clients-bg { background: transparent; }
 .tes-clients__list { list-style: none; border-top: 1px solid var(--tes-line); }
 .tes-clients__item {
   display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px 64px; align-items: baseline;
@@ -438,8 +443,50 @@
 }
 .tes-clients__more a:hover { color: var(--tes-rust); }
 
+/* ═══════════════ ВАКАНСИИ ═══════════════ */
+.tes-jobs-bg { background: transparent; border-top: 1px solid var(--tes-line); }
+.tes-jobs { border-top: 1px solid var(--tes-line); }
+.tes-job { border-bottom: 1px solid var(--tes-line); background: rgba(255, 255, 255, 0.86); }
+.tes-job__head {
+  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 6fr) auto 28px; gap: 12px 40px; align-items: center;
+  padding: 26px 0; cursor: pointer; list-style: none; transition: padding 0.4s var(--tes-ease), background 0.3s;
+}
+.tes-job__head::-webkit-details-marker { display: none; }
+.tes-job__head:hover { padding-left: 16px; padding-right: 16px; background: var(--tes-mist); }
+.tes-job__head:focus-visible { outline: 2px solid var(--tes-gold); outline-offset: 2px; }
+.tes-job__title { font-family: var(--tes-display); font-size: clamp(1.35rem, 2vw, 1.7rem); font-weight: 500; line-height: 1.15; color: var(--tes-ink); }
+.tes-job__lead { font-size: 15px; line-height: 1.55; color: var(--tes-smoke); }
+.tes-job__tag {
+  font-family: var(--tes-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--tes-rust); border: 1px solid rgba(168, 70, 27, 0.35); padding: 6px 10px; border-radius: 2px; white-space: nowrap;
+}
+.tes-job__toggle { position: relative; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--tes-line); transition: background 0.25s, border-color 0.25s, transform 0.35s var(--tes-ease); }
+.tes-job__toggle::before, .tes-job__toggle::after { content: ''; position: absolute; left: 50%; top: 50%; width: 10px; height: 1.5px; background: var(--tes-ink); transform: translate(-50%, -50%); }
+.tes-job__toggle::after { transform: translate(-50%, -50%) rotate(90deg); transition: opacity 0.25s; }
+.tes-job[open] .tes-job__toggle { background: var(--tes-gold); border-color: var(--tes-gold); transform: rotate(180deg); }
+.tes-job[open] .tes-job__toggle::after { opacity: 0; }
+.tes-job__body {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 28px 48px; align-items: start;
+  padding: 4px 0 36px;
+}
+.tes-job__label {
+  font-family: var(--tes-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--tes-gold-deep); margin-bottom: 12px;
+}
+.tes-job__list { list-style: none; display: grid; gap: 8px; }
+.tes-job__list li { position: relative; padding-left: 20px; font-size: 15px; line-height: 1.55; color: var(--tes-ink); }
+.tes-job__list li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; background: var(--tes-amber); }
+.tes-job__actions { display: flex; flex-direction: column; align-items: stretch; gap: 12px; min-width: 220px; }
+.tes-job__actions .tes-btn { justify-content: center; }
+.tes-job__tg { font-size: 14px; text-align: center; color: var(--tes-smoke); text-decoration: underline; text-underline-offset: 3px; }
+.tes-root .tes-job__tg { text-decoration: underline; }
+.tes-job__tg:hover { color: var(--tes-rust); }
+.tes-jobs__offer { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 40px; margin-top: 48px; }
+.tes-jobs__offer li { font-size: 14px; line-height: 1.55; color: var(--tes-smoke); padding-top: 18px; border-top: 2px solid var(--tes-gold); }
+.tes-jobs__offer b { display: block; font-family: var(--tes-display); font-size: 19px; font-weight: 500; color: var(--tes-ink); margin-bottom: 6px; }
+
 /* ═══════════════ ФОРМА ═══════════════ */
-.tes-form-section { background: var(--tes-paper); border-top: 1px solid var(--tes-line); }
+.tes-form-section { background: transparent; border-top: 1px solid var(--tes-line); }
 .tes-form-wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px 88px; align-items: start; }
 .tes-form-left__desc { font-size: 17px; line-height: 1.65; color: var(--tes-smoke); margin: 22px 0 40px; max-width: 32rem; }
 .tes-contacts { list-style: none; border-top: 1px solid var(--tes-line); }
@@ -561,6 +608,11 @@
   .tes-why__intro { position: static; }
   .tes-form-wrap { grid-template-columns: minmax(0, 1fr); }
   .tes-clients__item { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .tes-job__head { grid-template-columns: minmax(0, 1fr) auto 28px; gap: 8px 16px; }
+  .tes-job__lead { grid-column: 1 / -1; grid-row: 2; }
+  .tes-job__body { grid-template-columns: minmax(0, 1fr); }
+  .tes-job__actions { min-width: 0; }
+  .tes-jobs__offer { grid-template-columns: minmax(0, 1fr); }
   .tes-footer__inner { padding: 56px 24px 28px; }
 }
 @media (max-width: 640px) {
@@ -575,6 +627,9 @@
   .tes-why__card { padding: 26px 0 30px; }
   .tes-clients__item { padding: 20px 0; }
   .tes-clients__item:hover { padding-left: 0; padding-right: 0; background: none; }
+  .tes-job__head { padding: 20px 0; }
+  .tes-job__head:hover { padding-left: 0; padding-right: 0; background: none; }
+  .tes-job__tag { display: none; }
   .tes-contacts__value { font-size: 16px; }
   .tes-footer { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
   .tes-mbar {
@@ -627,6 +682,8 @@
 </style>
 
 <section class="tes-root" aria-label="Сайт ТОО Темирэнергострой">
+  <canvas class="tes-leaves tes-leaves--back" id="tes-leaves-back" aria-hidden="true"></canvas>
+  <canvas class="tes-leaves tes-leaves--front" id="tes-leaves-front" aria-hidden="true"></canvas>
 
   <!-- ══ NAV ══ -->
   <nav class="tes-nav" aria-label="Главная навигация">
@@ -651,6 +708,7 @@
       <a href="#products">Продукция</a>
       <a href="#incinerator">Печь «Веста Плюс»</a>
       <a href="#clients">Кому подходит</a>
+      <a href="#jobs">Вакансии</a>
       <a href="#form">Контакты</a>
       <div class="tes-nav__mobile-social">
         <a href="https://t.me/temires_bot" target="_blank" rel="noopener">
@@ -674,7 +732,6 @@
       <span class="tes-hero__band tes-hero__band--3"></span>
       <span class="tes-hero__band tes-hero__band--4"></span>
     </div>
-    <canvas class="tes-hero__leaves" id="tes-leaves" aria-hidden="true"></canvas>
     <span class="tes-hero__stripe" aria-hidden="true"></span>
 
     <div class="tes-hero__inner">
@@ -874,6 +931,178 @@
     </div>
   </div>
 
+  <!-- ══ ВАКАНСИИ ══ -->
+  <div class="tes-jobs-bg" id="jobs">
+    <div class="tes-section">
+      <div class="tes-head tes-reveal">
+        <div>
+          <h2 class="tes-sec-title">Вакансии</h2>
+        </div>
+        <p class="tes-sec-desc">Ищем людей в цех и в офис. Нажмите на вакансию, чтобы прочитать подробности, и откликнитесь — перезвоним и пригласим на собеседование.</p>
+      </div>
+      <div class="tes-jobs tes-reveal">
+        <details class="tes-job" id="job-worker">
+          <summary class="tes-job__head">
+            <span class="tes-job__title">Разнорабочий</span>
+            <span class="tes-job__lead">Помощь на производственном участке. Опыт не обязателен — всему научим.</span>
+            <span class="tes-job__tag">Производство</span>
+            <span class="tes-job__toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="tes-job__body">
+            <div class="tes-job__col">
+              <p class="tes-job__label">Обязанности</p>
+              <ul class="tes-job__list">
+                  <li>Погрузка и разгрузка металла и готовых изделий</li>
+                  <li>Подготовка заготовок, зачистка деталей и швов болгаркой</li>
+                  <li>Помощь сварщикам и сборщикам</li>
+                  <li>Порядок на участке и складе</li>
+              </ul>
+            </div>
+            <div class="tes-job__col">
+              <p class="tes-job__label">Требования</p>
+              <ul class="tes-job__list">
+                  <li>Физическая выносливость</li>
+                  <li>Ответственность и пунктуальность</li>
+                  <li>Желание освоить рабочую профессию</li>
+              </ul>
+            </div>
+            <div class="tes-job__actions">
+              <a href="#form" class="tes-btn tes-btn--gold tes-job__apply" data-job="Разнорабочий">Откликнуться</a>
+              <a href="https://t.me/temires_bot" target="_blank" rel="noopener" class="tes-job__tg">или написать в Telegram</a>
+            </div>
+          </div>
+        </details>
+        <details class="tes-job" id="job-welder">
+          <summary class="tes-job__head">
+            <span class="tes-job__title">Сварщик</span>
+            <span class="tes-job__lead">Сварка металлоконструкций, корпусов печей «Веста Плюс» и каркасов модульных зданий.</span>
+            <span class="tes-job__tag">Производство</span>
+            <span class="tes-job__toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="tes-job__body">
+            <div class="tes-job__col">
+              <p class="tes-job__label">Обязанности</p>
+              <ul class="tes-job__list">
+                  <li>Сварка полуавтоматом (MIG/MAG) и электродом (MMA) по чертежам</li>
+                  <li>Сборка узлов и конструкций</li>
+                  <li>Контроль качества швов, устранение дефектов</li>
+              </ul>
+            </div>
+            <div class="tes-job__col">
+              <p class="tes-job__label">Требования</p>
+              <ul class="tes-job__list">
+                  <li>Опыт работы сварщиком от 1 года</li>
+                  <li>Умение читать чертежи</li>
+                  <li>Удостоверение сварщика будет преимуществом</li>
+              </ul>
+            </div>
+            <div class="tes-job__actions">
+              <a href="#form" class="tes-btn tes-btn--gold tes-job__apply" data-job="Сварщик">Откликнуться</a>
+              <a href="https://t.me/temires_bot" target="_blank" rel="noopener" class="tes-job__tg">или написать в Telegram</a>
+            </div>
+          </div>
+        </details>
+        <details class="tes-job" id="job-mechanic">
+          <summary class="tes-job__head">
+            <span class="tes-job__title">Механик</span>
+            <span class="tes-job__lead">Обслуживание оборудования цеха, сборка и пусконаладка печей.</span>
+            <span class="tes-job__tag">Производство</span>
+            <span class="tes-job__toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="tes-job__body">
+            <div class="tes-job__col">
+              <p class="tes-job__label">Обязанности</p>
+              <ul class="tes-job__list">
+                  <li>Плановое обслуживание и ремонт станков, сварочного и грузоподъёмного оборудования</li>
+                  <li>Сборка и монтаж узлов печей, подключение горелок</li>
+                  <li>Участие в пусконаладке печей у заказчиков</li>
+              </ul>
+            </div>
+            <div class="tes-job__col">
+              <p class="tes-job__label">Требования</p>
+              <ul class="tes-job__list">
+                  <li>Опыт работы механиком от 2 лет</li>
+                  <li>Понимание гидравлики, пневматики и основ электрики</li>
+                  <li>Готовность к выездам на объекты будет плюсом</li>
+              </ul>
+            </div>
+            <div class="tes-job__actions">
+              <a href="#form" class="tes-btn tes-btn--gold tes-job__apply" data-job="Механик">Откликнуться</a>
+              <a href="https://t.me/temires_bot" target="_blank" rel="noopener" class="tes-job__tg">или написать в Telegram</a>
+            </div>
+          </div>
+        </details>
+        <details class="tes-job" id="job-manager">
+          <summary class="tes-job__head">
+            <span class="tes-job__title">Менеджер в офис</span>
+            <span class="tes-job__lead">Работа с заявками и клиентами: от первого звонка до отгрузки заказа.</span>
+            <span class="tes-job__tag">Офис</span>
+            <span class="tes-job__toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="tes-job__body">
+            <div class="tes-job__col">
+              <p class="tes-job__label">Обязанности</p>
+              <ul class="tes-job__list">
+                  <li>Обработка заявок с сайта, звонков и сообщений в Telegram</li>
+                  <li>Подготовка коммерческих предложений вместе с инженерами</li>
+                  <li>Ведение клиентской базы и сопровождение сделок</li>
+                  <li>Документы: счета, договоры, накладные</li>
+              </ul>
+            </div>
+            <div class="tes-job__col">
+              <p class="tes-job__label">Требования</p>
+              <ul class="tes-job__list">
+                  <li>Опыт в продажах или офисной работе</li>
+                  <li>Уверенная работа с компьютером: Excel, Word, 1С будет плюсом</li>
+                  <li>Грамотная речь, знание казахского языка будет плюсом</li>
+              </ul>
+            </div>
+            <div class="tes-job__actions">
+              <a href="#form" class="tes-btn tes-btn--gold tes-job__apply" data-job="Менеджер в офис">Откликнуться</a>
+              <a href="https://t.me/temires_bot" target="_blank" rel="noopener" class="tes-job__tg">или написать в Telegram</a>
+            </div>
+          </div>
+        </details>
+        <details class="tes-job" id="job-painter">
+          <summary class="tes-job__head">
+            <span class="tes-job__title">Покрасчик</span>
+            <span class="tes-job__lead">Подготовка и покраска металлоконструкций и корпусов печей.</span>
+            <span class="tes-job__tag">Производство</span>
+            <span class="tes-job__toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="tes-job__body">
+            <div class="tes-job__col">
+              <p class="tes-job__label">Обязанности</p>
+              <ul class="tes-job__list">
+                  <li>Подготовка поверхности: зачистка, обезжиривание, грунтование</li>
+                  <li>Покраска краскопультом и безвоздушным аппаратом</li>
+                  <li>Нанесение термостойких покрытий на корпуса печей</li>
+                  <li>Контроль качества и толщины покрытия</li>
+              </ul>
+            </div>
+            <div class="tes-job__col">
+              <p class="tes-job__label">Требования</p>
+              <ul class="tes-job__list">
+                  <li>Опыт покраски металла от 1 года</li>
+                  <li>Знание лакокрасочных материалов</li>
+                  <li>Аккуратность и внимание к деталям</li>
+              </ul>
+            </div>
+            <div class="tes-job__actions">
+              <a href="#form" class="tes-btn tes-btn--gold tes-job__apply" data-job="Покрасчик">Откликнуться</a>
+              <a href="https://t.me/temires_bot" target="_blank" rel="noopener" class="tes-job__tg">или написать в Telegram</a>
+            </div>
+          </div>
+        </details>
+      </div>
+      <ul class="tes-jobs__offer tes-reveal">
+        <li><b>Работа на собственном производстве</b>Металлоконструкции, печи и модульные здания — всё делаем сами</li>
+        <li><b>Официальное трудоустройство</b>Оформление по Трудовому кодексу РК</li>
+        <li><b>Оплата по итогам собеседования</b>Зависит от опыта и квалификации</li>
+      </ul>
+    </div>
+  </div>
+
   <!-- ══ ФОРМА ══ -->
   <div class="tes-form-section" id="form">
     <div class="tes-section">
@@ -1058,93 +1287,224 @@
     });
   }
 
-  /* ── Листопад на первом экране ── */
+  /* ── Листопад на всём сайте ──
+     Листья рисуются один раз в небольшие картинки (с прожилками, пятнами, тенью),
+     потом эти картинки падают. Задний слой — за контентом, передний — пара
+     крупных размытых листьев «у камеры». */
   (function () {
-    var canvas = document.getElementById('tes-leaves');
-    if (!canvas || !canvas.getContext) return;
-    var hero = canvas.parentElement;
-    var ctx = canvas.getContext('2d');
-    var W = 0, H = 0, leaves = [], running = false, heroVisible = true, last = 0, clock = 0;
+    var back = document.getElementById('tes-leaves-back');
+    var front = document.getElementById('tes-leaves-front');
+    if (!back || !back.getContext) return;
+    var bctx = back.getContext('2d');
+    var fctx = front && front.getContext ? front.getContext('2d') : null;
+    var W = 0, H = 0, dpr = 1, leaves = [], running = false, last = 0;
+    var lastScroll = window.pageYOffset || 0;
 
-    /* лицевая и изнаночная сторона листа: берёзовое золото → охра → ржавчина → вишня */
-    var COLORS = [
-      ['#f5a800', '#c98a00'], ['#f7c548', '#d6a12a'], ['#e2810f', '#b5650b'],
-      ['#c8561c', '#9a4015'], ['#a8461b', '#7d3213'], ['#7a2a14', '#561c0d']
-    ];
-    var SHAPES = [
-      function (c) { c.moveTo(0, .5); c.bezierCurveTo(.46, .32, .4, -.12, 0, -.5); c.bezierCurveTo(-.4, -.12, -.46, .32, 0, .5); },  /* берёза */
-      function (c) { c.moveTo(0, .4); c.bezierCurveTo(.62, .46, .48, .02, 0, -.5); c.bezierCurveTo(-.48, .02, -.62, .46, 0, .4); }, /* тополь */
-      function (c) { c.moveTo(0, .5); c.bezierCurveTo(.24, .24, .2, -.22, 0, -.5); c.bezierCurveTo(-.2, -.22, -.24, .24, 0, .5); }  /* ива */
-    ];
     function rand(a, b) { return a + Math.random() * (b - a); }
     function pick(arr) { return arr[(Math.random() * arr.length) | 0]; }
-    function makeLeaf(anywhere) {
-      var z = rand(.45, 1);
-      return {
-        x: rand(0, W), y: anywhere ? rand(-.05, 1) * H : rand(-90, -30), z: z,
-        size: rand(24, 42) * z * (W < 640 ? .75 : 1),
-        vy: rand(.32, .6) * (.55 + z * .6), vx: rand(-.08, .08),
-        sa: rand(12, 40) * z, sf: rand(.012, .022), sp: rand(0, 6.28),
-        rot: rand(0, 6.28), rs: rand(-.01, .01), ff: rand(.018, .045), fp: rand(0, 6.28),
-        shape: pick(SHAPES), color: pick(COLORS), t: rand(0, 600)
+
+    /* цвета: середина листа, край, прожилки */
+    var PALETTE = [
+      ['#f7b928', '#c8770c', '#ffe48f'],
+      ['#f39a1e', '#b4560c', '#ffd27a'],
+      ['#e4682a', '#9a3311', '#ffc28c'],
+      ['#cc3f1f', '#741a0d', '#f6a07a'],
+      ['#b9792b', '#6b4213', '#ecc683'],
+      ['#d8b23c', '#8a7520', '#fff1a8']
+    ];
+
+    /* контуры листьев: координаты в единичном квадрате, черешок внизу (0; 0.5) */
+    function maple() {
+      /* пять лопастей с зубчиками, как у клёна остролистного */
+      var pts = [], lobes = [[0, 1], [0.92, 0.9], [-0.92, 0.9], [1.9, 0.58], [-1.9, 0.58]];
+      for (var i = 0; i <= 360; i++) {
+        var a = -Math.PI + i / 360 * Math.PI * 2, r = 0.34;
+        for (var k = 0; k < lobes.length; k++) {
+          var d = Math.abs(a - lobes[k][0]), L = lobes[k][1];
+          var main = Math.max(0, 1 - d / 0.42), side = Math.max(0, 1 - Math.abs(d - 0.24) / 0.12);
+          r = Math.max(r, 0.34 + (L - 0.34) * Math.pow(main, 1.6), 0.34 + (L * 0.62 - 0.34) * side);
+        }
+        if (Math.abs(Math.abs(a) - Math.PI) < 0.35) r *= 0.75 + 0.25 * Math.abs(Math.abs(a) - Math.PI) / 0.35;
+        r *= 0.6 * (1 + 0.025 * Math.sin(a * 46));
+        pts.push([Math.sin(a) * r, -Math.cos(a) * r + 0.06]);
+      }
+      return { pts: pts, veins: lobes.map(function (l) { return [Math.sin(l[0]) * l[1] * 0.55, -Math.cos(l[0]) * l[1] * 0.55 + 0.06]; }), hub: [0, 0.14], stem: 0.17 };
+    }
+    function ovate(widthK, serr, lobed) {
+      return function () {
+        var n = 140, ws = [], pts = [], i, s, w, skew = rand(0.9, 1);
+        for (i = 0; i <= n; i++) {
+          s = i / n;
+          w = widthK * Math.pow(s, 0.75) * Math.pow(1 - s, 0.42);
+          if (lobed) w *= 0.6 + 0.4 * Math.abs(Math.sin(s * Math.PI * 4.5));
+          w *= 1 + serr * Math.sin(s * 95);
+          ws.push(w);
+        }
+        for (i = 0; i <= n; i++) pts.push([ws[i], i / n - 0.5]);
+        for (i = n; i >= 0; i--) pts.push([-ws[i] * skew, i / n - 0.5]);
+        var veins = [];
+        for (i = 1; i <= 7; i++) { s = i / 8; var idx = Math.round(s * n); veins.push([s - 0.5, ws[idx] * 0.85]); }
+        return { pts: pts, ribs: veins };
       };
     }
-    function drawLeaf(l) {
-      var flip = Math.cos(l.t * l.ff + l.fp);
-      var sy = (flip < 0 ? -1 : 1) * (.3 + .7 * Math.abs(flip)); /* лист переворачивается, но не превращается в нитку */
-      ctx.save();
-      ctx.translate(l.x + Math.sin(l.t * l.sf + l.sp) * l.sa, l.y);
-      ctx.rotate(l.rot + Math.sin(l.t * l.sf * .7 + l.sp) * .5);
-      ctx.scale(l.size, l.size * sy);
-      ctx.globalAlpha = .6 + l.z * .4;
-      ctx.beginPath(); l.shape(ctx); ctx.closePath();
-      ctx.fillStyle = flip < 0 ? l.color[1] : l.color[0];
-      ctx.fill();
-      ctx.beginPath(); ctx.moveTo(0, .64); ctx.lineTo(0, -.36);
-      ctx.lineWidth = .045; ctx.strokeStyle = 'rgba(30,24,19,.3)'; ctx.stroke();
-      ctx.restore();
+    var SHAPES = [maple, maple, ovate(0.62, 0.03, false), ovate(0.82, 0.015, false), ovate(0.55, 0, true)];
+
+    function makeLeafSprites(size) {
+      var shape = pick(SHAPES)(), col = pick(PALETTE);
+      var path = new Path2D();
+      shape.pts.forEach(function (p, i) { if (i) path.lineTo(p[0], p[1]); else path.moveTo(p[0], p[1]); });
+      path.closePath();
+
+      function canvas() { var c = document.createElement('canvas'); c.width = c.height = size; return c; }
+      function unit(g) { g.translate(size / 2, size / 2); g.scale(size * 0.78, size * 0.78); }
+
+      var face = canvas(), g = face.getContext('2d');
+      unit(g);
+      g.save();
+      g.clip(path);
+      var rg = g.createRadialGradient(-0.08, -0.06, 0.02, 0, 0.05, 0.62);
+      rg.addColorStop(0, col[0]); rg.addColorStop(1, col[1]);
+      g.fillStyle = rg; g.fillRect(-1, -1, 2, 2);
+      for (var i = 0; i < 22; i++) {                                   /* неравномерный цвет */
+        g.globalAlpha = rand(0.05, 0.16);
+        g.fillStyle = Math.random() < 0.5 ? col[1] : col[2];
+        g.beginPath(); g.arc(rand(-0.4, 0.4), rand(-0.45, 0.45), rand(0.03, 0.14), 0, 6.3); g.fill();
+      }
+      for (i = 0; i < 6; i++) {                                         /* пятнышки увядания */
+        g.globalAlpha = rand(0.2, 0.45); g.fillStyle = '#4a2a10';
+        g.beginPath(); g.arc(rand(-0.3, 0.3), rand(-0.35, 0.35), rand(0.006, 0.022), 0, 6.3); g.fill();
+      }
+      g.globalAlpha = 0.55; g.strokeStyle = col[2]; g.lineCap = 'round';  /* прожилки */
+      if (shape.veins) {
+        shape.veins.forEach(function (v) {
+          g.lineWidth = 0.014; g.beginPath(); g.moveTo(shape.hub[0], shape.hub[1]);
+          g.quadraticCurveTo((shape.hub[0] + v[0]) / 2 + 0.02, (shape.hub[1] + v[1]) / 2, v[0], v[1]); g.stroke();
+        });
+        g.lineWidth = 0.006; g.globalAlpha = 0.35;
+        shape.veins.forEach(function (v) {
+          for (var t = 0.35; t < 0.9; t += 0.18) {
+            var x = shape.hub[0] + (v[0] - shape.hub[0]) * t, y = shape.hub[1] + (v[1] - shape.hub[1]) * t;
+            g.beginPath(); g.moveTo(x, y); g.lineTo(x + v[1] * 0.12, y - v[0] * 0.12); g.moveTo(x, y); g.lineTo(x - v[1] * 0.12, y + v[0] * 0.12); g.stroke();
+          }
+        });
+      } else {
+        g.lineWidth = 0.014; g.beginPath(); g.moveTo(0, 0.5); g.lineTo(0, -0.46); g.stroke();
+        g.lineWidth = 0.007; g.globalAlpha = 0.4;
+        shape.ribs.forEach(function (r) {
+          [-1, 1].forEach(function (side) {
+            g.beginPath(); g.moveTo(0, r[0]); g.quadraticCurveTo(side * r[1] * 0.5, r[0] - 0.03, side * r[1], r[0] - 0.09); g.stroke();
+          });
+        });
+      }
+      var lg = g.createLinearGradient(-0.5, 0, 0.5, 0);                 /* лист чуть изогнут */
+      lg.addColorStop(0, 'rgba(255,255,255,0.14)'); lg.addColorStop(0.5, 'rgba(255,255,255,0)'); lg.addColorStop(1, 'rgba(40,15,0,0.22)');
+      g.globalAlpha = 1; g.fillStyle = lg; g.fillRect(-1, -1, 2, 2);
+      g.restore();
+      g.globalAlpha = 0.55; g.strokeStyle = col[1]; g.lineWidth = 0.012; g.stroke(path);
+      g.globalAlpha = 1; g.strokeStyle = '#5a3412'; g.lineWidth = 0.02; g.lineCap = 'round';  /* черешок */
+      var st = shape.stem || 0.46;
+      g.beginPath(); g.moveTo(0, st); g.quadraticCurveTo(0.02, st + 0.1, 0.05, st + 0.17); g.stroke();
+
+      var rev = canvas(), r = rev.getContext('2d');                    /* изнанка: светлее и тусклее */
+      r.drawImage(face, 0, 0);
+      r.globalCompositeOperation = 'source-atop'; r.fillStyle = 'rgba(236,220,190,0.32)'; r.fillRect(0, 0, size, size);
+
+      var shadow = canvas(), sh = shadow.getContext('2d');
+      sh.filter = 'blur(' + Math.round(size * 0.035) + 'px)';
+      unit(sh); sh.fillStyle = 'rgba(40,25,10,0.28)'; sh.fill(path);
+
+      var soft = canvas(), so = soft.getContext('2d');                  /* для переднего плана — не в фокусе */
+      so.filter = 'blur(' + Math.round(size * 0.03) + 'px)'; so.drawImage(face, 0, 0);
+
+      return { face: face, rev: rev, shadow: shadow, soft: soft };
     }
-    function drawAll() { ctx.clearRect(0, 0, W, H); for (var i = 0; i < leaves.length; i++) drawLeaf(leaves[i]); }
+
+    var SPRITE_SIZE = 160, sprites = [];
+    for (var s = 0; s < 14; s++) sprites.push(makeLeafSprites(SPRITE_SIZE));
+
+    function makeLeaf(layer, anywhere) {
+      var z = layer === 'front' ? 1 : rand(0.45, 0.95);
+      var small = W < 640 ? 0.75 : 1;
+      return {
+        layer: layer, z: z, sp: pick(sprites),
+        x: rand(-0.05, 1.05) * W, y: anywhere ? rand(-0.1, 1) * H : rand(-140, -50),
+        size: (layer === 'front' ? rand(90, 130) : rand(40, 68) * (0.55 + z * 0.45)) * small,
+        vy: (layer === 'front' ? rand(1.1, 1.6) : rand(0.35, 0.7) * (0.6 + z * 0.6)),
+        vx: rand(-0.12, 0.12), sa: rand(14, 46) * z, sf: rand(0.010, 0.02), ph: rand(0, 6.3),
+        rot: rand(0, 6.3), spin: rand(-0.008, 0.008), ff: rand(0.016, 0.04), fp: rand(0, 6.3),
+        t: rand(0, 600)
+      };
+    }
+
+    function drawLeaf(ctx, l) {
+      var sway = Math.sin(l.t * l.sf + l.ph);
+      var x = l.x + sway * l.sa;
+      var rot = l.rot + Math.cos(l.t * l.sf + l.ph) * 0.55;          /* лист «качается» в такт движению */
+      var flip = Math.cos(l.t * l.ff + l.fp);
+      var sy = (flip < 0 ? -1 : 1) * (0.22 + 0.78 * Math.abs(flip));
+      var s = l.size, img = l.layer === 'front' ? l.sp.soft : (flip < 0 ? l.sp.rev : l.sp.face);
+      if (l.layer === 'back') {
+        ctx.save(); ctx.translate(x + s * 0.14, l.y + s * 0.26); ctx.rotate(rot); ctx.scale(1, sy);
+        ctx.globalAlpha = 0.55; ctx.drawImage(l.sp.shadow, -s / 2, -s / 2, s, s); ctx.restore();
+      }
+      ctx.save(); ctx.translate(x, l.y); ctx.rotate(rot); ctx.scale(1, sy);
+      ctx.globalAlpha = l.layer === 'front' ? 0.9 : 0.75 + l.z * 0.25;
+      ctx.drawImage(img, -s / 2, -s / 2, s, s); ctx.restore();
+    }
+
     function resize() {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var w = hero.offsetWidth, h = hero.offsetHeight;
-      if (w === W && h === H) return;
-      W = w; H = h;
-      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var count = Math.max(8, Math.min(24, Math.round(W * H / 60000)));
-      while (leaves.length < count) leaves.push(makeLeaf(true));
-      leaves.length = count;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = window.innerWidth; H = window.innerHeight;
+      [[back, bctx], [front, fctx]].forEach(function (pair) {
+        if (!pair[1]) return;
+        pair[0].width = Math.round(W * dpr); pair[0].height = Math.round(H * dpr);
+        pair[1].setTransform(dpr, 0, 0, dpr, 0, 0);
+      });
+      var nBack = Math.max(6, Math.min(16, Math.round(W * H / 90000)));
+      var nFront = reduceMotion || W < 640 || !fctx ? 0 : 2;
+      var b = leaves.filter(function (l) { return l.layer === 'back'; }).slice(0, nBack);
+      var f = leaves.filter(function (l) { return l.layer === 'front'; }).slice(0, nFront);
+      while (b.length < nBack) b.push(makeLeaf('back', true));
+      while (f.length < nFront) f.push(makeLeaf('front', false));
+      leaves = b.concat(f);
       drawAll();
+    }
+    function drawAll() {
+      bctx.clearRect(0, 0, W, H); if (fctx) fctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < leaves.length; i++) drawLeaf(leaves[i].layer === 'front' ? fctx : bctx, leaves[i]);
     }
     function frame(now) {
       if (!running) return;
       var dt = last ? Math.min((now - last) / 16.667, 3) : 1;
-      last = now; clock += dt;
-      var wind = Math.sin(clock * .004) * .12 + Math.sin(clock * .0011 + 1) * .1;
+      last = now;
+      var sc = window.pageYOffset || 0, dy = Math.max(-80, Math.min(80, sc - lastScroll));
+      lastScroll = sc;
+      var wind = Math.sin(now * 0.00025) * 0.15 + Math.sin(now * 0.00007 + 1) * 0.12;
       for (var i = 0; i < leaves.length; i++) {
         var l = leaves[i];
-        l.t += dt; l.y += l.vy * dt; l.x += (l.vx + wind * l.z) * dt; l.rot += l.rs * dt;
-        if (l.x < -60) l.x = W + 50; else if (l.x > W + 60) l.x = -50;
-        if (l.y > H + 40) leaves[i] = makeLeaf(false);
+        l.t += dt; l.rot += l.spin * dt;
+        l.y += l.vy * dt - dy * (l.layer === 'front' ? 0.9 : 0.2 + l.z * 0.35);   /* при прокрутке листья смещаются — эффект глубины */
+        l.x += (l.vx + wind * l.z) * dt;
+        if (l.x < -80) l.x = W + 60; else if (l.x > W + 80) l.x = -60;
+        if (l.y > H + 80) leaves[i] = makeLeaf(l.layer, false);
+        else if (l.y < -160) { l.y = H + 60; l.x = rand(0, W); }
       }
       drawAll();
       requestAnimationFrame(frame);
     }
-    function start() { if (running || reduceMotion || !heroVisible || document.hidden) return; running = true; last = 0; requestAnimationFrame(frame); }
-    function stop() { running = false; }
+    function start() { if (running || reduceMotion || document.hidden) return; running = true; last = 0; requestAnimationFrame(frame); }
 
     resize();
     start();
-    var resizeTimer;
-    window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(resize, 150); }, { passive: true });
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        heroVisible = entries[0].isIntersecting;
-        if (heroVisible) start(); else stop();
-      }).observe(hero);
-    }
-    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+    var resizeTimer, lastW = W;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        if (window.innerWidth === lastW && Math.abs(window.innerHeight - H) < 120) return; /* на телефоне не перерисовываем от панели браузера */
+        lastW = window.innerWidth; resize();
+      }, 150);
+    }, { passive: true });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) running = false; else start(); });
   })();
 
   /* ── Бегущая строка: плавная скорость, замедление при наведении ── */
@@ -1175,6 +1535,16 @@
       requestAnimationFrame(animMarquee);
     })();
   })();
+
+  /* ── Вакансии: «Откликнуться» подставляет вакансию в форму ── */
+  document.querySelectorAll('.tes-job__apply').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var msg = document.getElementById('tes-interest');
+      if (msg) msg.value = 'Отклик на вакансию «' + btn.getAttribute('data-job') + '». Опыт работы: ';
+      var name = document.getElementById('tes-name');
+      if (name) setTimeout(function () { name.focus({ preventScroll: true }); }, 700);
+    });
+  });
 
   /* ── Форма (обработчик Тильды) ── */
   var form = document.getElementById('tes-main-form');
